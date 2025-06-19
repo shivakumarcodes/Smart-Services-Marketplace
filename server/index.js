@@ -376,8 +376,8 @@ app.put('/api/profile', authenticate, upload.single('profilePicture'), async (re
 // Get all categories
 app.get('/api/categories', async (req, res) => {
   try {
-    const [rows] = await pool.execute('SELECT name FROM categories ORDER BY name ASC');
-    const categoryNames = rows.map(row => row.name);
+    const [rows] = await pool.execute('SELECT DISTINCT category FROM services');
+    const categoryNames = rows.map(row => row.category);
     res.json({ categories: categoryNames });
   } catch (error) {
     console.error('Error fetching categories:', error);
@@ -1314,11 +1314,7 @@ function isValidStatusTransition(currentStatus, newStatus) {
   };
 
   return validTransitions[currentStatus]?.includes(newStatus) || false;
-}/**
- * API endpoint for providers to update booking status
- * Route: PUT /api/provider/bookings/:bookingId
- * Add this to your main server.js file
- */
+}
 
 // Middleware to verify the provider
 const verifyProvider = async (req, res, next) => {
