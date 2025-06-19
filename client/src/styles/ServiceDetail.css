@@ -49,12 +49,12 @@
   text-shadow: rgb(225, 215, 215) 1px 1px 3px;
 }
 
-.service-detail-container p,
+/* .service-detail-container p,
 li{
   color: rgb(60, 51, 51);
   font-weight: 500;
   text-shadow: rgb(225, 215, 215) 1px 1px 3px;
-}
+} */
 
 .service-header {
   margin-bottom: 2.5rem;
