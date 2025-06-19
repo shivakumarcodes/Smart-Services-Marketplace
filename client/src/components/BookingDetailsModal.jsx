@@ -131,50 +131,6 @@ const BookingDetailsModal = ({
               </div>
             )}
           </div>
-
-          {/* <div className="modal-actions">
-            {canConfirm && onConfirm && (
-              <button 
-                className="action-btn confirm-btn"
-                onClick={() => onConfirm(booking.id)}
-                disabled={loading}
-                aria-label={`Confirm booking ${booking.id}`}
-              >
-                {loading ? 'Processing...' : 'Confirm Booking'}
-              </button>
-            )}
-            
-            {canReject && onReject && (
-              <button 
-                className="action-btn reject-btn"
-                onClick={() => onReject(booking.id)}
-                disabled={loading}
-                aria-label={`Reject booking ${booking.id}`}
-              >
-                {loading ? 'Processing...' : 'Reject Booking'}
-              </button>
-            )}
-            
-            {canCancel && onCancel && (
-              <button 
-                className="action-btn cancel-btn"
-                onClick={() => onCancel(booking.id)}
-                disabled={loading}
-                aria-label={`Cancel booking ${booking.id}`}
-              >
-                {loading ? 'Processing...' : 'Cancel Booking'}
-              </button>
-            )}
-            
-            <button 
-              className="action-btn close-btn" 
-              onClick={onClose}
-              disabled={loading}
-              aria-label="Close modal"
-            >
-              Close
-            </button>
-          </div> */}
         </div>
       </div>
     </div>

@@ -36,7 +36,7 @@ export default function Footer() {
     <li><Link to="/">Home</Link></li>
     <li><Link to="/services">Services</Link></li>
     <li><Link to="/about">About Us</Link></li>
-    <li><Link to="/about">Contact</Link></li> {/* Only include this if you have a /contact route */}
+    {/* <li><Link to="/about">Contact</Link></li> */}
   </ul>
 </div>
 
@@ -45,9 +45,22 @@ export default function Footer() {
         <div className="footer-section">
           <h3 className="footer-heading">Contact Us</h3>
           <ul className="footer-contact">
-            <li>📞 +91 9618244562</li>
-            <li>✉️ galishivakumar2002@gmail.com</li>
-            <li>📍 500001, Hyderabad, India</li>
+            <li>
+              📞 <a href="tel:+919618244562" className="footer-link">+91 9618244562</a>
+            </li>
+            <li>
+              ✉️ <a href="mailto:galishivakumar2002@gmail.com" className="footer-link">galishivakumar2002@gmail.com</a>
+            </li>
+            <li>
+              📍 <a 
+                href="https://www.google.com/maps/search/?api=1&query=Balanagar+Hyderabad+India"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="footer-link"
+              >
+                Balanagar, Hyderabad, India
+              </a>
+            </li>
           </ul>
         </div>
       </div>
