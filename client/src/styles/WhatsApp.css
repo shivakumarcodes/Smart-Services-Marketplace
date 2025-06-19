@@ -117,3 +117,7 @@
 .whatsapp-button.group {
     padding: 0.8rem !important;
   }
+
+  .whatsapp-container a {
+  text-decoration: none !important;
+}

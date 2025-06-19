@@ -30,7 +30,7 @@ const Testimonial = () => {
 
       <figcaption className="testimonial-author">
         <div className="author-info">
-          <span className="author-name">Sarah Johnson</span>
+          <span className="author-name">Srivani</span>
           <span className="author-role">Homeowner</span>
         </div>
       </figcaption>
