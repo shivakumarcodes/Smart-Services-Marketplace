@@ -357,7 +357,7 @@ const ProfilePage = () => {
       </div>
 
       {profile.role === 'provider' && profile.provider && (
-        <div className="provider-info" data-aos="fade-up" data-aos-delay="300">
+        <div style={{minWidth: '100%'}} className="provider-info" data-aos="fade-up" data-aos-delay="300">
           <h2>Provider Information</h2>
           <div className="provider-details">
             <p data-aos="fade-right" data-aos-delay="350"><strong>Service Type:</strong> {profile.provider.service_type || 'Not specified'}</p>
