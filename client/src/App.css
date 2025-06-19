@@ -1,0 +1,62 @@
+/* Existing styles */ 
+#root {
+  margin: 0 auto;
+  text-align: center;
+}
+
+.card {
+  padding: 2em;
+}
+
+.read-the-docs {
+  color: #888;
+}
+
+/* New styles for the app structure */
+.app {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+/* Center main content vertically and horizontally */
+.main-content {
+  flex: 1;
+  margin: auto !important;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 1rem !important;
+  width: 100%;
+  position: relative;
+  background-image: url('https://www.10000coders.in/student_voices/placments_bg1.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}
+
+.main-content::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(92, 112, 19, 0.71); /* Soft overlay of your color */
+  box-shadow: inset 0 0 80px rgba(50, 50, 50, 0.4); /* Inner grey shadow */
+  z-index: -1;
+}
+
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .main-content {
+    padding: 1rem;
+  }
+}
+
+/* Footer positioning (assuming you want it at the bottom) */
+.app > footer {
+  margin-top: auto;
+}

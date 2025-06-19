@@ -1,0 +1,390 @@
+.featured-section {
+  background: linear-gradient(105deg, #15254F 0%, #156B56 100%);
+  padding: 3rem 1rem 4rem;
+  position: relative;
+  width: 100%;
+  box-sizing: border-box;
+  overflow: hidden;
+  margin-bottom: 30px;
+  border-radius: 15px;
+  border: #fff 2px solid;
+}
+
+.featured-title {
+  color: white;
+  text-shadow: #111827 0 5px 15px rgba(0, 0, 0, 0.3);
+  font-size: clamp(1.75rem, 5vw, 2.75rem);
+  text-align: center;
+  font-weight: 700;
+  margin: 0 auto 2.5rem;
+  line-height: 1.3;
+  max-width: 1200px;
+  padding: 0 1rem;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.featured-scroll-container {
+  position: relative;
+  width: 100%;
+  max-width: 100vw;
+  margin: 0 auto;
+}
+
+.featured-scroll-wrapper {
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  padding-inline: 2rem;
+  -webkit-overflow-scrolling: touch;
+  position: relative;
+  width: 100%;
+  scroll-snap-type: x proximity;
+  margin-left: 20px;
+  margin-right: 20px;
+}
+
+/* Hide scrollbar for all browsers */
+.featured-scroll-wrapper::-webkit-scrollbar {
+  display: none;
+  width: 0;
+  height: 0;
+  background: transparent;
+}
+.featured-scroll-wrapper {
+  -ms-overflow-style: none; /* IE/Edge */
+  scrollbar-width: none;    /* Firefox */
+}
+
+.featured-scroll-inner {
+  display: flex;
+  gap: 1rem;
+  min-width: max-content;
+  padding-bottom: 0.5rem;
+  justify-content: flex-start;
+  margin: 0 auto;
+  scroll-snap-align: start;
+}
+
+.scroll-button {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, 0.9);
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 20;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease;
+  color: #15254F;
+  opacity: 0.9;
+}
+
+.scroll-button:hover {
+  background-color: white;
+  transform: translateY(-50%) scale(1.1);
+  opacity: 1;
+}
+
+.scroll-button:focus {
+  outline: 2px solid rgba(255, 255, 255, 0.8);
+  outline-offset: 2px;
+}
+
+.scroll-button svg {
+  font-size: 1.2rem;
+}
+
+/* Fading gradient overlays (visible when scrolling is possible) */
+.featured-scroll-fade-left,
+.featured-scroll-fade-right {
+  position: absolute;
+  top: 0;
+  width: 40px;
+  height: 100%;
+  z-index: 10;
+  pointer-events: none; /* So only the button inside is clickable */
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+/* Show gradient + button when active (via JS class toggle) */
+.featured-scroll-fade-left.visible,
+.featured-scroll-fade-right.visible {
+  opacity: 1;
+  pointer-events: auto; /* Enable clicking on buttons when visible */
+}
+
+/* Left gradient */
+.featured-scroll-fade-left {
+  left: 0;
+  background: linear-gradient(
+    to right,
+    rgba(21, 37, 79, 0.9) 0%,
+    rgba(21, 37, 79, 0) 100%
+  );
+}
+
+/* Right gradient */
+.featured-scroll-fade-right {
+  right: 0; /* <- FIXED: it was `-4`, which is invalid */
+  background: linear-gradient(
+    to left,
+    rgba(21, 107, 86, 0.9) 0%,
+    rgba(21, 107, 86, 0) 100%
+  );
+}
+
+/* Scroll buttons inside the fades */
+.scroll-button {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: white;
+  color: #333;
+  border: none;
+  border-radius: 50%;
+  padding: 8px;
+  cursor: pointer;
+  z-index: 20;
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.2);
+  pointer-events: auto;
+}
+
+.scroll-button.left {
+  left: 8px;
+}
+
+.scroll-button.right {
+  right: 8px;
+}
+
+.status-message {
+  color: white;
+  text-align: center;
+  font-size: 1rem;
+  padding: 1rem;
+  margin: 0 auto;
+  max-width: 1200px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+
+.status-message.error {
+  color: #ff6b6b;
+}
+
+.retry-button {
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  color: white;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.retry-button:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+/* Loading skeleton */
+.featured-card-skeleton {
+  width: 250px;
+  min-width: 250px;
+  height: 300px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.skeleton-image {
+  width: 100%;
+  height: 150px;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 4px;
+  animation: pulse 1.5s infinite ease-in-out;
+}
+
+.skeleton-text {
+  height: 20px;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 4px;
+  animation: pulse 1.5s infinite ease-in-out;
+}
+
+.skeleton-text.short {
+  width: 60%;
+}
+
+.skeleton-rating {
+  height: 20px;
+  width: 100px;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 4px;
+  animation: pulse 1.5s infinite ease-in-out;
+  margin-top: auto;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 0.6;
+  }
+  50% {
+    opacity: 0.3;
+  }
+}
+
+/* Keyboard navigation focus styles */
+.featured-scroll-wrapper:focus-within {
+  outline: 2px solid rgba(255, 255, 255, 0.5);
+  outline-offset: -2px;
+}
+
+/* Reduced motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  .featured-scroll-wrapper {
+    scroll-behavior: auto;
+  }
+  
+  .scroll-button:hover {
+    transform: translateY(-50%);
+  }
+  
+  .featured-card-skeleton,
+  .skeleton-image,
+  .skeleton-text,
+  .skeleton-rating {
+    animation: none;
+  }
+}
+
+/* Responsive adjustments */
+@media (min-width: 640px) {
+  .featured-scroll-inner {
+    gap: 1.25rem;
+  }
+  
+  .scroll-button {
+    width: 45px;
+    height: 45px;
+  }
+  
+  .featured-scroll-fade-left,
+  .featured-scroll-fade-right {
+    width: 80px;
+  }
+}
+
+@media (min-width: 768px) {
+  .featured-scroll-inner {
+    gap: 1.5rem;
+  }
+  
+  .featured-card-skeleton {
+    width: 280px;
+    min-width: 280px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .featured-scroll-inner {
+    gap: 2rem;
+  }
+  
+  .scroll-button {
+    width: 50px;
+    height: 50px;
+  }
+  
+  .scroll-button svg {
+    font-size: 1.5rem;
+  }
+  
+  .featured-card-skeleton {
+    width: 300px;
+    min-width: 300px;
+  }
+}
+
+@media (max-width: 480px) {
+  .scroll-button {
+    width: 36px;
+    height: 36px;
+    opacity: 0.8;
+  }
+  
+  .featured-section {
+    padding: 2rem 1rem 3rem;
+  }
+  
+  .featured-title {
+    margin-bottom: 1.5rem;
+  }
+}
+
+.featured-scroll-fade-left,
+.featured-scroll-fade-right {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  background: linear-gradient(to right, #15254F, transparent);
+  padding: 0 0.5rem;
+  transition: opacity 0.3s;
+}
+
+.featured-scroll-fade-left {
+  left: 0;
+  background: linear-gradient(to right,#15254F 0%, #15254F, transparent);
+
+}
+.featured-scroll-fade-right {
+  right: 0;
+  background: linear-gradient(to left,#156B56 0%, #156B56, transparent);
+}
+
+.scroll-button {
+  background-color: #fff;
+  border: none;
+  border-radius: 50%;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+  width: 36px;
+  height: 36px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.scroll-button:hover:not(:disabled) {
+  transform: scale(1.1);
+}
+
+.scroll-button:disabled {
+  opacity: 0.4;
+  cursor: default;
+  pointer-events: none;
+}
+
+.hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.visible {
+  opacity: 1;
+  pointer-events: auto;
+}

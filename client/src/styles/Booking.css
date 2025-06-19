@@ -1,0 +1,487 @@
+/* Booking.css */
+
+/* Overlay and Modal Base */
+.booking-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  padding: 20px;
+  backdrop-filter: blur(4px);
+}
+
+.booking-modal {
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+  max-width: 600px;
+  width: 100%;
+  max-height: 90vh;
+  overflow-y: auto;
+  position: relative;
+  animation: slideIn 0.3s ease-out;
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-20px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* Header */
+.booking-modal-header {
+  padding: 24px 24px 16px;
+  border-bottom: 1px solid #e5e7eb;
+  position: relative;
+}
+
+.booking-modal-header h3 {
+  margin: 0;
+  font-size: 24px;
+  font-weight: 600;
+  color: #1f2937;
+}
+
+.close-btn {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  background: none;
+  border: none;
+  font-size: 28px;
+  cursor: pointer;
+  color: #6b7280;
+  padding: 8px;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+}
+
+.close-btn:hover {
+  background-color: #f3f4f6;
+  color: #374151;
+}
+
+/* Service Summary */
+.service-summary {
+  display: flex;
+  gap: 16px;
+  padding: 24px;
+  background-color: #f9fafb;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.service-thumbnail {
+  width: 100px;
+  height: 80px;
+  object-fit: cover;
+  border-radius: 8px;
+  flex-shrink: 0;
+}
+
+.service-info {
+  flex: 1;
+}
+
+.service-info h4 {
+  margin: 0 0 8px 0;
+  font-size: 18px;
+  font-weight: 600;
+  color: #1f2937;
+}
+
+.service-details {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.service-details p {
+  margin: 0;
+  font-size: 14px;
+}
+
+.provider-name {
+  color: #6b7280;
+}
+
+.service-price {
+  color: #059669;
+  font-weight: 600;
+  font-size: 16px;
+}
+
+.service-duration {
+  color: #6b7280;
+}
+
+/* Success Message */
+.booking-success {
+  padding: 40px 24px;
+  text-align: center;
+}
+
+.booking-success p {
+  font-size: 18px;
+  color: #059669;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+/* Error Message */
+.error-message {
+  background-color: #fef2f2;
+  color: #dc2626;
+  padding: 12px 16px;
+  border-radius: 8px;
+  margin: 0 24px 16px;
+  border: 1px solid #fecaca;
+  font-size: 14px;
+}
+
+/* Form Styles */
+form {
+  padding: 24px;
+}
+
+.form-group {
+  margin-bottom: 24px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 500;
+  color: #374151;
+  font-size: 14px;
+}
+
+.form-group input,
+.form-group textarea {
+  width: 100%;
+  padding: 12px 16px;
+  border: 1px solid #d1d5db !important;
+  border-radius: 8px;
+  font-size: 14px;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  box-sizing: border-box;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+  outline: none;
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+
+.form-group small {
+  display: block;
+  margin-top: 4px;
+  color: #6b7280;
+  font-size: 12px;
+}
+
+.form-group textarea {
+  resize: vertical;
+  min-height: 80px;
+}
+
+/* Payment Methods */
+.payment-methods {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 8px;
+}
+
+.payment-option {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-size: 14px;
+}
+
+.payment-option:hover {
+  border-color: #3b82f6;
+  background-color: #f8fafc;
+}
+
+.payment-option input[type="radio"] {
+  margin-right: 5px;
+  width: auto;
+  box-shadow: none !important;
+}
+
+.payment-option input[type="radio"]:checked + span {
+  color: #3b82f6;
+  font-weight: 500;
+}
+
+.payment-option:has(input[type="radio"]:checked) {
+  border-color: #3b82f6;
+  background-color: #eff6ff;
+}
+
+/* Booking Summary */
+.booking-summary {
+  background-color: #f9fafb;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  padding: 20px;
+  margin-bottom: 24px;
+}
+
+.booking-summary h4 {
+  margin: 0 0 16px 0;
+  font-size: 16px;
+  font-weight: 600;
+  color: #1f2937;
+}
+
+.summary-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 0;
+  font-size: 14px;
+}
+
+.summary-row.total {
+  border-top: 1px solid #d1d5db;
+  margin-top: 8px;
+  padding-top: 12px;
+  font-weight: 600;
+  font-size: 16px;
+  color: #1f2937;
+}
+
+.payment-info {
+  margin-top: 12px;
+  padding-top: 12px;
+  border-top: 1px solid #e5e7eb;
+}
+
+.payment-info small {
+  color: #6b7280;
+  font-size: 12px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+/* Form Actions */
+.form-actions {
+  display: flex;
+  gap: 12px;
+  justify-content: flex-end;
+  margin-top: 32px;
+  padding-top: 20px;
+  border-top: 1px solid #e5e7eb;
+}
+
+.cancel-btn,
+.confirm-btn {
+  padding: 12px 24px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  border: none;
+  min-width: 120px;
+}
+
+.cancel-btn {
+  background-color: #f3f4f6;
+  color: #374151;
+  border: 1px solid #d1d5db;
+}
+
+.cancel-btn:hover {
+  background-color: #e5e7eb;
+  border-color: #9ca3af;
+}
+
+.confirm-btn {
+  background-color: #3b82f6;
+  color: white;
+}
+
+.confirm-btn:hover:not(:disabled) {
+  background-color: #2563eb;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+}
+
+.confirm-btn:disabled {
+  background-color: #9ca3af;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .booking-overlay {
+    padding: 16px;
+  }
+  
+  .booking-modal {
+    max-height: 95vh;
+    border-radius: 8px;
+  }
+  
+  .booking-modal-header {
+    padding: 20px 20px 16px;
+  }
+  
+  .booking-modal-header h3 {
+    font-size: 20px;
+    padding-right: 40px;
+  }
+  
+  .service-summary {
+    flex-direction: column;
+    padding: 20px;
+  }
+  
+  .service-thumbnail {
+    width: 100%;
+    height: 120px;
+    align-self: center;
+  }
+  
+  form {
+    padding: 20px;
+  }
+  
+  .form-actions {
+    flex-direction: column-reverse;
+  }
+  
+  .cancel-btn,
+  .confirm-btn {
+    width: 100%;
+    justify-content: center;
+  }
+  
+  .payment-methods {
+    gap: 8px;
+  }
+  
+  .payment-option {
+    padding: 12px;
+  }
+}
+
+@media (max-width: 480px) {
+  .booking-overlay {
+    padding: 8px;
+  }
+  
+  .booking-modal-header {
+    padding: 16px;
+  }
+  
+  .service-summary {
+    padding: 16px;
+  }
+  
+  form {
+    padding: 16px;
+  }
+  
+  .form-group {
+    margin-bottom: 20px;
+  }
+  
+  .booking-summary {
+    padding: 16px;
+  }
+}
+
+/* Loading States */
+.confirm-btn:disabled {
+  position: relative;
+  overflow: hidden;
+}
+
+.confirm-btn:disabled::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 16px;
+  height: 16px;
+  margin: -8px 0 0 -8px;
+  border: 2px solid transparent;
+  border-top: 2px solid white;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Accessibility */
+.booking-modal:focus {
+  outline: none;
+}
+
+.form-group input:invalid {
+  border-color: #dc2626;
+}
+
+.form-group input:invalid:focus {
+  border-color: #dc2626;
+  box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.1);
+}
+
+/* Smooth scrolling for modal content */
+.booking-modal {
+  scroll-behavior: smooth;
+}
+
+/* Custom scrollbar for webkit browsers */
+.booking-modal::-webkit-scrollbar {
+  width: 6px;
+}
+
+.booking-modal::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 3px;
+}
+
+.booking-modal::-webkit-scrollbar-thumb {
+  background: #c1c1c1;
+  border-radius: 3px;
+}
+
+.booking-modal::-webkit-scrollbar-thumb:hover {
+  background: #a8a8a8;
+}

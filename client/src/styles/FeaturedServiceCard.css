@@ -1,0 +1,176 @@
+.featured-card {
+  background-color: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+  width: 100%;
+  max-width: 320px;
+  width: 280px;
+  flex-shrink: 0;
+  cursor: pointer;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.featured-card:focus {
+  outline: 2px solid #4D96FF;
+  outline-offset: 4px;
+}
+
+.featured-card:hover {
+  /* transform: translateY(-4px); */
+  box-shadow: 0 14px 32px rgba(0, 0, 0, 0.14);
+}
+
+.provider-photo-wrapper {
+  background: #f3f4f6;
+  height: 180px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+
+.provider-photo-bg {
+  /* background: #e5e7eb; */
+  background-image: url('https://www.10000coders.in/programs_page/programs_card_bg.png');
+  background-size: cover;         /* Ensures the image covers the container */
+  background-position: center;    /* Centers the image */
+  background-repeat: no-repeat;   /* Prevents tiling */
+  width: 100%;
+  height: 100%;
+  border-radius: 8px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.provider-photo-bg:hover {
+  border-radius: 8px !important;
+}
+
+.provider-photo {
+  width: 170px;
+  height: 170px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #fff;
+  background-color: #fff;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+}
+
+.provider-info {
+  padding: 25px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin: 0 !important;
+}
+
+.provider-name {
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: #1f2937;
+  line-height: 1.3;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.provider-category {
+  font-size: 0.95rem;
+  color: #6b7280;
+  font-weight: 500;
+  line-height: 1.4;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.provider-rating {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 0.875rem;
+  color: #facc15;
+}
+
+.star {
+  color: #d1d5db;
+  font-size: 1rem;
+}
+
+.star.filled,
+.star.half {
+  color: #facc15;
+}
+
+.rating-value {
+  font-weight: 500;
+  color: #374151;
+}
+
+.experience-info {
+  font-size: 0.85rem;
+  color: #4b5563;
+  margin-top: 4px;
+}
+
+/* Skeleton Loader */
+.shimmer {
+  background: linear-gradient(-90deg, #f4f4f4 0%, #e0e0e0 50%, #f4f4f4 100%);
+  background-size: 200% 100%;
+  animation: shimmer 1.2s infinite;
+  border-radius: 6px;
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+.featured-card-skeleton {
+  width: 100%;
+  max-width: 320px;
+  height: 300px;
+  border-radius: 12px;
+  background: #fff;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.05);
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  gap: 12px;
+}
+
+.skeleton-image {
+  height: 100px;
+  width: 100px;
+  border-radius: 50%;
+  align-self: center;
+}
+
+.skeleton-text {
+  height: 16px;
+  width: 70%;
+}
+
+.skeleton-text.short {
+  width: 40%;
+}
+
+.skeleton-rating {
+  height: 12px;
+  width: 60%;
+}
+
+/* Focus Accessibility */
+.featured-card:focus {
+  outline: 2px solid #3b82f6;
+  outline-offset: 4px;
+}
