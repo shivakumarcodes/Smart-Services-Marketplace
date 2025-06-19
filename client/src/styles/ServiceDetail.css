@@ -28,11 +28,32 @@
   max-width: 1200px;
   margin: 0 auto;
   padding: 2rem 1rem;
+  padding-top: 4rem;
   color: var(--text-medium);
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   background-color: #fff;
+  /* background-color: rgb(125, 115, 115); */
+  background-image: url(https://www.10000coders.in/_next/image?url=%2FIndustrySays%2Fmern.webp&w=3840&q=75);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  border-radius: 15px;
+  border: white 2px solid;
   border-radius: var(--border-radius-md);
   box-shadow: var(--shadow-md);
+}
+
+.service-detail-container h3,
+.service-detail-container h1{
+  text-shadow: rgb(225, 215, 215) 1px 1px 3px;
+}
+
+.service-detail-container p,
+li{
+  color: rgb(60, 51, 51);
+  font-weight: 500;
+  text-shadow: rgb(225, 215, 215) 1px 1px 3px;
 }
 
 .service-header {
@@ -69,11 +90,14 @@
 }
 
 .service-meta .duration {
-  color: var(--text-muted);
+  color: rgb(93, 90, 90);
   font-size: 1.1rem;
   display: flex;
   align-items: center;
   gap: 0.5rem;
+  background: var(--green-bg-light);
+  padding: 0.3rem 1rem;
+  border-radius: var(--border-radius-sm);
 }
 
 .service-meta .duration::before {
@@ -94,6 +118,7 @@
   border-radius: var(--border-radius-sm);
   transition: transform 0.3s ease;
   border: 2px solid var(--green-bg-medium);
+  margin: 0 !important;
 }
 
 .service-image:hover {
@@ -127,29 +152,21 @@
 
 .service-details-list li {
   margin-bottom: 0.8rem;
-  padding-left: 1.5rem;
   position: relative;
 }
 
-/* .service-details-list li::before {
-  content: "•";
-  color: var(--primary);
-  font-weight: bold;
-  position: absolute;
-  left: 0;
-} */
 
 .book-button {
   background-color: var(--primary);
   color: white;
-  padding: 0.75rem 1.5rem;
+  padding: 0.75rem 0.75rem;
   font-size: 1.1rem;
   border: none;
   border-radius: var(--border-radius-sm);
   cursor: pointer;
   transition: all 0.3s ease;
   align-self: center;
-  margin-top: 1rem;
+  width: 150px;
 }
 
 .book-button:hover {
@@ -192,7 +209,7 @@
 .provider-section {
   margin: 4rem 0;
   padding: 2.5rem;
-  background: #a9c4c6;
+  background: #c1d4d5;
   border-radius: var(--border-radius-lg);
   box-shadow: var(--shadow-sm);
   width: 100%;
@@ -525,8 +542,9 @@
 
 .action-buttons {
   display: flex;
-  gap: 1rem; /* spacing between the button and share button */
+  gap: 1rem;
+  justify-content: center; /* spacing between the button and share button */
   align-items: center; /* vertically center content */
-  margin-top: 1rem;
+  /* margin-top: 1rem; */
   flex-wrap: wrap; /* optional: allow wrapping on small screens */
 }

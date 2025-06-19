@@ -3,15 +3,21 @@
   width: 100%;
   margin: 2rem auto;
   padding: 2rem;
-  background-color: #f9f9f9;
+  background-color: #d3c2c2;
   border-radius: 20px;
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.05);
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   color: #2c3e50;
+  border: #fffefe 2px solid;
+}
+
+.provider-details-container h2{
+  text-shadow: rgb(150, 195, 195) 1px 1px 3px;
 }
 
 .provider-header {
   display: flex;
+  justify-content: center;
   gap: 2rem;
   align-items: center;
   margin-bottom: 2rem;
@@ -25,6 +31,7 @@
   object-fit: cover;
   border: 2px solid;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  /* margin-right: 2rem; */
 }
 
 .provider-info{
@@ -32,6 +39,8 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  max-width: 600px;
+  padding: 1rem !important;
 }
 
 .provider-info h1 {

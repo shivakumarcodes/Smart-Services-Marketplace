@@ -158,7 +158,7 @@ const ServiceDetail = () => {
     <div className="service-detail-container">
       {/* Service Header */}
       <div className="service-header" data-aos="fade-down">
-        <h1>{service.title}</h1>
+        <h1>{service.title} Service</h1>
         <div className="service-meta">
           <span className="price">₹{service.base_price}</span>
           <span className="duration">{service.duration_minutes} mins</span>
@@ -210,7 +210,7 @@ const ServiceDetail = () => {
             </ul>
           </div>
 
-          <div className="action-buttons" data-aos="fade-up" data-aos-delay="300">
+          <div className="action-buttons">
             {!bookingSuccess ? (
               <button className="book-button" onClick={handleBookNowClick}>
                 Book Now
@@ -220,8 +220,8 @@ const ServiceDetail = () => {
                 <p>✓ Booking successful! Redirecting to your bookings...</p>
               </div>
             )}
-            <ShareButton service={service} />
           </div>
+            <ShareButton service={service} />
         </div>
       </div>
 
