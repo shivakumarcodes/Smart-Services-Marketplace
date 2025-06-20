@@ -225,7 +225,9 @@ const FeaturedServices = memo(() => {
                   serviceType={provider.service_type}
                   experience_years={provider.experience_years}
                   rating={Number(provider.rating) || 4.5}
-                  onClick={() => handleProviderClick(provider.provider_id)}
+                  // onClick={() => handleProviderClick(provider.provider_id)}
+                  handleProviderClick={handleProviderClick}
+                  provider_id={provider.provider_id}
                 />
               ))}
             </div>

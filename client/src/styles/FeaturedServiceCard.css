@@ -11,10 +11,11 @@
   display: flex;
   flex-direction: column;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
+  font-family: 'Inter', sans-serif; /* Disable default click behavior */
 }
 
 .featured-card:focus {
-  outline: 2px solid #4D96FF;
+  /* outline: 2px solid #4D96FF; */
   outline-offset: 4px;
 }
 
@@ -61,7 +62,7 @@
 }
 
 .provider-info {
-  padding: 25px;
+  padding: 1rem;
   display: flex;
   flex-direction: column;
   gap: 8px;
@@ -173,4 +174,72 @@
 .featured-card:focus {
   outline: 2px solid #3b82f6;
   outline-offset: 4px;
+}
+
+.connect-button {
+  font-family: 'Inter', sans-serif;
+  position: relative;
+  padding: 0.2rem;
+  height: 2.5rem;
+  z-index: 10;
+  transition: all 200ms linear;
+  transform: scale(1);
+  display: flex; /* Show by default unless you want to control it with media queries */
+  align-items: center;
+  justify-content: center;
+  gap: 8.85px;
+  border-radius: 6.07px;
+  color: white;
+  background: linear-gradient(to right, #E84975, #FF8541);
+  font-size: 12px;
+  text-align: left;
+  font-weight: 600;
+  line-height: 18.15px;
+  white-space: nowrap;
+  width: fit-content;
+  margin-left: auto;
+  margin-right: auto;
+  margin: 0.7rem;
+  text-transform: uppercase;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.connect-button:active {
+  transform: scale(0.95);
+}
+
+.connect-button .text {
+  font-size: 2rem; /* Only keep if you have a nested element with class "text" */
+}
+
+/* Responsive Styles */
+@media (min-width: 640px) {
+  .connect-button {
+    padding: 11.92px 21.46px;
+    gap: 15.5px;
+    border-radius: 9.54px;
+    font-size: 17.88px;
+    line-height: 21.64px;
+  }
+
+  .connect-button .text {
+    font-size: 17.88px;
+    line-height: 21.64px;
+    text-align: left;
+  }
+}
+
+@media (min-width: 768px) {
+  .connect-button {
+    font-size: 12px;
+    padding: 6.81px 12.26px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .connect-button {
+    font-size: 1rem;
+    padding: 9.13px 16.44px;
+  }
 }

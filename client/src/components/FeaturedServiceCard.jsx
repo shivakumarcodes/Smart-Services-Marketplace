@@ -9,11 +9,13 @@ const FeaturedServiceCard = ({
   index,
   providerPhoto = '',
   providerName,
+  provider_id,
   serviceType,
   experience_years = 0,
   rating = 4,
   onClick,
-  isLoading = false
+  isLoading = false,
+  handleProviderClick
 }) => {
   const handleKeyDown = (e) => {
     if (e.key === 'Enter' || e.key === ' ') {
@@ -95,6 +97,7 @@ const FeaturedServiceCard = ({
         <p className="provider-category">{serviceType}</p>
         {renderStars(rating)}
         <p className="experience-info">{experience_years} years of experience</p>
+        <a className='connect-button' onClick={() => handleProviderClick(provider_id)}>View Profile</a>
       </div>
     </article>
   );

@@ -40,6 +40,8 @@
   scroll-snap-type: x proximity;
   margin-left: 20px;
   margin-right: 20px;
+  -ms-overflow-style: none; /* IE/Edge */
+  scrollbar-width: none;    /* Firefox */
 }
 
 /* Hide scrollbar for all browsers */
@@ -49,10 +51,6 @@
   height: 0;
   background: transparent;
 }
-.featured-scroll-wrapper {
-  -ms-overflow-style: none; /* IE/Edge */
-  scrollbar-width: none;    /* Firefox */
-}
 
 .featured-scroll-inner {
   display: flex;
@@ -60,18 +58,16 @@
   min-width: max-content;
   padding-bottom: 0.5rem;
   justify-content: flex-start;
-  margin: 0 auto;
+  margin: 0 auto !important;
   scroll-snap-align: start;
 }
 
 .scroll-button {
   position: absolute;
   top: 50%;
-  transform: translateY(-50%);
   width: 40px;
   height: 40px;
   border-radius: 50%;
-  background-color: rgba(255, 255, 255, 0.9);
   border: none;
   cursor: pointer;
   display: flex;
@@ -84,19 +80,28 @@
   opacity: 0.9;
 }
 
-.scroll-button:hover {
-  background-color: white;
-  transform: translateY(-50%) scale(1.1);
-  opacity: 1;
-}
-
 .scroll-button:focus {
-  outline: 2px solid rgba(255, 255, 255, 0.8);
-  outline-offset: 2px;
+  outline: none
 }
 
 .scroll-button svg {
   font-size: 1.2rem;
+}
+
+.scroll-button.left {
+  background-color: none !important;
+  left: 8px;
+}
+
+.scroll-button.right {
+  right: 8px;
+  background-color: none !important;
+}
+
+.scroll-button:disabled {
+  opacity: 0.4;
+  cursor: default;
+  pointer-events: none;
 }
 
 /* Fading gradient overlays (visible when scrolling is possible) */
@@ -104,63 +109,33 @@
 .featured-scroll-fade-right {
   position: absolute;
   top: 0;
-  width: 40px;
+  bottom: 0;
+  width: 20px;
   height: 100%;
   z-index: 10;
-  pointer-events: none; /* So only the button inside is clickable */
-  opacity: 0;
+  pointer-events: none;
+  display: flex;
+  align-items: center;
+  padding: 0 0.5rem;
   transition: opacity 0.3s ease;
+  opacity: 0;
+}
+
+.featured-scroll-fade-left {
+  left: 0;
+  background: linear-gradient(to right,#15254F 0%, #15254F, transparent);
+}
+
+.featured-scroll-fade-right {
+  right: 0;
+  background: linear-gradient(to left,#156B56 0%, #156B56, transparent);
 }
 
 /* Show gradient + button when active (via JS class toggle) */
 .featured-scroll-fade-left.visible,
 .featured-scroll-fade-right.visible {
   opacity: 1;
-  pointer-events: auto; /* Enable clicking on buttons when visible */
-}
-
-/* Left gradient */
-.featured-scroll-fade-left {
-  left: 0;
-  background: linear-gradient(
-    to right,
-    rgba(21, 37, 79, 0.9) 0%,
-    rgba(21, 37, 79, 0) 100%
-  );
-}
-
-/* Right gradient */
-.featured-scroll-fade-right {
-  right: 0; /* <- FIXED: it was `-4`, which is invalid */
-  background: linear-gradient(
-    to left,
-    rgba(21, 107, 86, 0.9) 0%,
-    rgba(21, 107, 86, 0) 100%
-  );
-}
-
-/* Scroll buttons inside the fades */
-.scroll-button {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  background-color: white;
-  color: #333;
-  border: none;
-  border-radius: 50%;
-  padding: 8px;
-  cursor: pointer;
-  z-index: 20;
-  box-shadow: 0 0 8px rgba(0, 0, 0, 0.2);
   pointer-events: auto;
-}
-
-.scroll-button.left {
-  left: 8px;
-}
-
-.scroll-button.right {
-  right: 8px;
 }
 
 .status-message {
@@ -332,53 +307,6 @@
   }
 }
 
-.featured-scroll-fade-left,
-.featured-scroll-fade-right {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  z-index: 10;
-  display: flex;
-  align-items: center;
-  background: linear-gradient(to right, #15254F, transparent);
-  padding: 0 0.5rem;
-  transition: opacity 0.3s;
-}
-
-.featured-scroll-fade-left {
-  left: 0;
-  background: linear-gradient(to right,#15254F 0%, #15254F, transparent);
-
-}
-.featured-scroll-fade-right {
-  right: 0;
-  background: linear-gradient(to left,#156B56 0%, #156B56, transparent);
-}
-
-.scroll-button {
-  background-color: #fff;
-  border: none;
-  border-radius: 50%;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.2);
-  width: 36px;
-  height: 36px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  cursor: pointer;
-  transition: transform 0.2s ease;
-}
-
-.scroll-button:hover:not(:disabled) {
-  transform: scale(1.1);
-}
-
-.scroll-button:disabled {
-  opacity: 0.4;
-  cursor: default;
-  pointer-events: none;
-}
-
 .hidden {
   opacity: 0;
   pointer-events: none;
@@ -387,4 +315,17 @@
 .visible {
   opacity: 1;
   pointer-events: auto;
+}
+
+/* Remove ALL focus outlines in the entire featured section */
+.featured-section *:focus,
+.featured-section *:focus-visible,
+.featured-section *:focus-within {
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+/* Remove the specific conflicting rule completely */
+.featured-scroll-wrapper:focus-within {
+  outline: none !important;
 }
