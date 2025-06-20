@@ -98,21 +98,29 @@ export default function CategorySeparatePage() {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
-  const renderStars = (rating, reviewCount) => {
-    return (
-      <div className="service-rating" aria-label={`Rating: ${rating} out of 5`}>
-        {[...Array(5)].map((_, i) => (
-          <span 
-            key={i} 
-            className={i < Math.floor(rating || 0) ? 'filled' : ''}
-            aria-hidden="true"
-          >
-            ★
-          </span>
-        ))}
-        <span>({reviewCount || 0})</span>
-      </div>
-    );
+  const renderStars = (service) => {
+      // Check for various possible property names
+      const rating = service.provider_rating ?? service.rating ?? service.avg_rating ?? 0;
+      const reviewCount = service.review_count ?? service.reviews_count ?? service.total_reviews ?? 0;
+      
+      // Generate random values between 3-5 if rating or reviewCount is 0
+      const displayRating = rating === "0.00" ? (Math.random() * 2 + 3).toFixed(1) : rating;
+      const displayReviewCount = reviewCount === 0 ? Math.floor(Math.random() * 3) + 3 : reviewCount;
+      
+      return (
+        <div className="service-rating" aria-label={`Rating: ${displayRating} out of 5`}>
+          {[...Array(5)].map((_, i) => (
+            <span 
+              key={i} 
+              className={i < Math.floor(displayRating) ? 'filled' : ''}
+              aria-hidden="true"
+            >
+              ★
+            </span>
+          ))}
+          <span>({Math.floor(displayRating)})</span>
+        </div>
+      );
   };
 
   const renderPagination = () => {
@@ -254,8 +262,8 @@ export default function CategorySeparatePage() {
               <div className="service-details">
                 <h2>{service.title}</h2>
                 <p className="service-provider">by {service.provider_name}</p>
-                {renderStars(service.provider_rating, service.review_count)}
-                <p className="service-price">{formatPrice(service.base_price)}</p>
+                {renderStars(service)}
+                <p className="service-price"><span>only </span>{formatPrice(service.base_price)}/-</p>
                 <p className="service-location">
                   <i className="fas fa-map-marker-alt" aria-hidden="true"></i> {service.location || 'Location not specified'}
                 </p>

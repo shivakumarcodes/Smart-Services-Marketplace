@@ -23,7 +23,7 @@ const FeaturedServices = memo(() => {
     hasOverflow: false
   });
 
-  const colors = ['#FF6B6B', '#6BCB77', '#4D96FF', '#FFD93D', '#845EC2', '#00C9A7'];
+  // const colors = ['#FF6B6B', '#6BCB77', '#4D96FF', '#FFD93D', '#845EC2', '#00C9A7'];
 
   const scrollContainerRef = useRef(null);
   const contentRef = useRef(null);

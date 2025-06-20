@@ -1,4 +1,4 @@
-/* Services.css */
+/* Services.css - Updated Version */
 /* Ensure higher specificity and prevent overrides */
 
 .services-page {
@@ -8,9 +8,16 @@
   width: 1350px;
   border: 2px solid #f0f0f0;
   border-radius: 15px;
+  /* 🌈 Pastel Rainbow Background */
+  background: linear-gradient(135deg,
+    #ead3e4,  /* pastel pink */
+    #d1e7ff,  /* soft blue */
+    #e0ffd6,  /* mint green */
+    #c5b47e   /* buttery yellow */
+  );
 }
 
-.loading{
+.loading {
   background-color: #f0f0f0;
   width: 400px;
 }
@@ -158,22 +165,6 @@
   padding-left: 36px;
 }
 
-@media (max-width: 768px) {
-  .services-title {
-    font-size: 2rem;
-  }
-  
-  .search-bar-wrapper {
-    flex-direction: column;
-    gap: 1rem;
-  }
-  
-  .filters-section {
-    flex-direction: column;
-    gap: 1rem;
-  }
-}
-
 /* Search container with higher specificity */
 .services-page .search-container {
   margin-bottom: 1.5rem;
@@ -190,8 +181,8 @@
 .services-page .search-bar input {
   flex: 2;
   padding: 0.8rem 1.2rem;
-  border: 1px solid #e1e4e8; /* Using direct color instead of var to avoid conflicts */
-  border-radius: 8px; /* Direct value instead of var */
+  border: 1px solid #e1e4e8;
+  border-radius: 8px;
   font-size: 1rem;
   transition: all 0.2s ease;
   background-color: #f8f9fa;
@@ -200,7 +191,6 @@
 
 .services-page .search-bar input:focus {
   outline: none;
-  /* border-color: #16a085; */
   box-shadow: 0 0 0 3px rgba(22, 160, 133, 0.2);
 }
 
@@ -253,9 +243,9 @@
   display: block;
   margin-bottom: 0.5rem;
   font-weight: 600;
-  color: #123353; /* Text primary */
+  color: #123353;
   font-size: 1.2rem;
-  text-shadow: #716d6d 0px 1px 1px; /* Subtle text shadow for better visibility */
+  text-shadow: #716d6d 0px 1px 1px;
 }
 
 .services-page .filter-group select {
@@ -281,23 +271,12 @@
   box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.2);
 }
 
-/* 🌈 Pastel Rainbow Background */
-.services-page {
-  background: linear-gradient(135deg,
-    #ead3e4,  /* pastel pink */
-    #d1e7ff,  /* soft blue */
-    #e0ffd6,  /* mint green */
-    #c5b47e   /* buttery yellow */
-  );
-  padding: 2rem 1rem;
-}
-
-/* 🧩 Service Grid */
+/* Service Grid Layout - Updated */
 .services-page .service-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
   gap: 1.5rem;
-  margin-top: 1rem;
+  margin-top: 2rem;
   width: 100%;
 }
 
@@ -307,28 +286,27 @@
   }
 }
 
+/* Service Card Styles - Enhanced */
 .services-page .service-card {
-  position: relative;
-  backdrop-filter: blur(0px);
-  background-color: rgba(255, 255, 255, 0.8);
-  border: 1px solid rgba(200, 200, 200, 0.3);
-  border-radius: 16px;
-  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
+  background-color: #faf4f4;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
   overflow: hidden;
   cursor: pointer;
-  transform: translateY(0);
-  transition: all 0.4s ease;
+  transition: all 0.3s ease;
+  position: relative;
+  backdrop-filter: blur(0px);
+  border: 2px solid rgba(200, 200, 200, 0.3);
   will-change: transform, backdrop-filter, box-shadow;
 }
 
 .services-page .service-card:hover {
-  transform: translateY(-10px) rotateZ(-1deg) scale(1);
-  border: 1px solid #1c0325;
+  transform: translateY(-5px) scale(1);
+  border: 1px solid #000000e7;
   background: radial-gradient(circle at top left, #ffffff 60%, #f9ecff 100%);
   box-shadow: 0 14px 30px rgba(0, 0, 0, 0.1),
               0 0 12px rgba(238, 200, 249, 0.4);
 }
-
 
 .services-page .service-card::before {
   content: '';
@@ -348,12 +326,12 @@
   left: 125%;
 }
 
-
-/* 🖼 Image */
+/* Service Image - Enhanced */
 .services-page .service-image {
   height: 200px;
   position: relative;
   overflow: hidden;
+  padding: 0 !important;
 }
 
 .services-page .service-image img {
@@ -363,39 +341,38 @@
   transition: transform 0.5s ease;
 }
 
-.services-page .service-card:hover .service-image img {
-  transform: scale(1.06);
-}
-
-/* 📄 Details */
+/* Service Details */
 .services-page .service-details {
-  padding: 1.5rem;
+  font-family: 'Inter', sans-serif;
+  padding: 0.8rem;
 }
 
+.services-page .service-details h2,
 .services-page .service-details h3 {
-  margin: 0 0 0.5rem 0;
+  margin: 0.5rem 0 0.5rem 0;
   font-size: 1.25rem;
   color: #2d2d2d;
   font-weight: 700;
   line-height: 1.3;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
   font-family: 'Inter', sans-serif;
 }
 
 .services-page .service-provider {
-  color: #757575;
-  margin-bottom: 0.75rem;
-  font-size: 0.95rem;
+  color: #4a4f52;
+  font-size: 1rem;
   font-weight: 500;
   font-style: italic;
 }
 
-/* ⭐ Rating */
+/* Service Rating - Enhanced */
 .services-page .service-rating {
   display: flex;
   justify-content: center;
   align-items: center;
   gap: 0.3rem;
-  margin-bottom: 0.75rem;
 }
 
 .services-page .service-rating span {
@@ -413,32 +390,41 @@
   margin-left: 0.5rem;
 }
 
-/* 💰 Price */
+/* Service Price */
 .services-page .service-price {
   font-weight: 700;
   color: #16a085;
-  margin: 0.75rem 0;
   font-size: 1.2rem;
 }
 
-/* 📍 Location */
+/* Service Location */
 .services-page .service-location {
-  color: #6c757d;
+  color: #4a4f52;
   margin: 0.75rem 0 0;
-  font-size: 0.9rem;
-  text-align: center;
+  font-size: 1rem;
   display: flex;
   justify-content: center;
   align-items: center;
   gap: 0.4rem;
 }
 
+/* Accessibility and Focus States */
+.services-page .service-card:focus {
+  outline: none;
+  outline-offset: 4px;
+}
 
+/* Loading States */
+.services-page .service-card.loading {
+  pointer-events: none;
+}
+
+/* No Results */
 .services-page .no-results {
   grid-column: 1 / -1;
   text-align: center;
   padding: 3rem;
-  color: #6c757d; /* Text secondary */
+  color: #6c757d;
   font-size: 1.1rem;
   background-color: #f8f9fa;
   border-radius: 12px;
@@ -448,7 +434,7 @@
   grid-column: 1 / -1;
   text-align: center;
   padding: 3rem;
-  color: #6c757d; /* Text secondary */
+  color: #6c757d;
   font-size: 1.1rem;
   display: flex;
   flex-direction: column;
@@ -481,7 +467,7 @@
 }
 
 .services-page .pagination button:hover:not(:disabled) {
-  background-color: #16a085; /* Primary */
+  background-color: #16a085;
   color: white;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
 }
@@ -492,7 +478,7 @@
 }
 
 .services-page .pagination button.active {
-  background-color: #16a085; /* Primary */
+  background-color: #16a085;
   color: white;
   border: none;
 }
@@ -505,168 +491,30 @@
 .services-page .loading-spinner {
   width: 40px;
   height: 40px;
-  border: 4px solid rgba(22, 160, 133, 0.1); /* Primary with opacity */
-  border-top-color: #16a085; /* Primary */
+  border: 4px solid rgba(22, 160, 133, 0.1);
+  border-top-color: #16a085;
   border-radius: 50%;
   animation: spin 1s linear infinite;
 }
 
-/* Responsive adjustments */
-@media (max-width: 1024px) {
-  .services-page .service-grid {
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-  }
-}
-
-@media (max-width: 768px) {
-  .services-page {
-    padding: 1.5rem 1rem !important;
-  }
-  
-  .services-page .search-bar {
-    flex-direction: column;
-    gap: 1rem;
-  }
-  
-  .services-page .search-bar input,
-  .services-page .location-filter select {
-    width: 100%;
-  }
-  
-  .services-page .filter-group {
-    min-width: 100%;
-  }
-}
-
-@media (max-width: 480px) {
-  .services-page .service-grid {
-    grid-template-columns: 1fr;
-  }
-  
-  .services-page .pagination {
-    flex-wrap: wrap;
-  }
-  
-  .services-page .pagination button {
-    padding: 0.5rem 0.8rem;
-    min-width: 36px;
-  }
-}
-
-/* Add these styles to your Services.css file */
-
-/* Results summary styling */
-.results-summary {
-  text-align: center;
-  margin: 1rem 0;
-  color: #666;
-  font-size: 0.9rem;
-}
-
-/* Pagination container */
-.pagination {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin: 2rem 0;
-  gap: 0.5rem;
-}
-
-/* Page numbers container */
-.page-numbers {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-}
-
-/* Pagination buttons */
-.pagination button {
-  padding: 0.5rem 0.8rem;
-  border: 1px solid #ddd;
-  background-color: white;
-  color: #333;
-  cursor: pointer;
-  border-radius: 4px;
-  font-size: 0.9rem;
-  min-width: 40px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  transition: all 0.2s ease;
-}
-
-/* Previous and Next buttons */
-.pagination-button {
-  padding: 0.5rem 1rem !important;
-}
-
-/* Active page */
-.pagination button.active {
-  background-color: #4a90e2;
-  color: white;
-  border-color: #4a90e2;
-  font-weight: bold;
-}
-
-/* Hover effects */
-.pagination button:not(:disabled):hover {
-  background-color: #f0f0f0;
-  border-color: #aaa;
-}
-
-.pagination button.active:hover {
-  background-color: #3a80d2;
-}
-
-/* Disabled buttons */
-.pagination button:disabled {
-  opacity: 0.5;
-  cursor: not-allowed;
-}
-
-/* Ellipsis styling */
-.pagination .ellipsis {
-  padding: 0.5rem 0.3rem;
-  color: #666;
-}
-
-/* Responsive adjustments */
-@media (max-width: 600px) {
-  .pagination {
-    flex-wrap: wrap;
-  }
-  
-  .page-numbers {
-    order: 1;
-    width: 100%;
-    justify-content: center;
-    margin-bottom: 1rem;
-  }
-  
-  .pagination-button {
-    order: 2;
-    flex: 1;
-  }
-}
-
-/* Skeleton Loader Styles */
+/* Skeleton Loader Styles - Enhanced */
 .service-card.skeleton {
   cursor: default;
   pointer-events: none;
 }
 
-.skeleton-image {
+.shimmer {
   background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
   background-size: 200% 100%;
   animation: shimmer 1.5s infinite;
+}
+
+.skeleton-image {
   height: 200px;
   border-radius: 8px;
 }
 
 .skeleton-text {
-  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
-  background-size: 200% 100%;
-  animation: shimmer 1.5s infinite;
   height: 1em;
   margin: 0.5em 0;
   border-radius: 4px;
@@ -705,5 +553,116 @@
   }
   100% {
     background-position: -200% 0;
+  }
+}
+
+/* Results summary styling */
+.results-summary {
+  text-align: center;
+  margin: 1rem 0;
+  color: #666;
+  font-size: 0.9rem;
+}
+
+/* Page numbers container */
+.page-numbers {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+/* Previous and Next buttons */
+.pagination-button {
+  padding: 0.5rem 1rem !important;
+}
+
+/* Ellipsis styling */
+.pagination .ellipsis {
+  padding: 0.5rem 0.3rem;
+  color: #666;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 1024px) {
+  .services-page .service-grid {
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  }
+}
+
+@media (max-width: 768px) {
+  .services-page {
+    width: 100%;
+    padding: 1.5rem !important;
+  }
+  
+  .services-title {
+    font-size: 2rem;
+  }
+  
+  .search-bar-wrapper {
+    flex-direction: column;
+    gap: 1rem;
+  }
+  
+  .filters-section {
+    flex-direction: column;
+    gap: 1rem;
+  }
+  
+  .services-page .service-card {
+    max-width: 100%;
+  }
+  
+  .services-page .service-image {
+    height: 180px;
+  }
+  
+  .services-page .search-bar {
+    flex-direction: column;
+    gap: 1rem;
+  }
+  
+  .services-page .search-bar input,
+  .services-page .location-filter select {
+    width: 100%;
+  }
+  
+  .services-page .filter-group {
+    min-width: 100%;
+  }
+  
+  .pagination {
+    flex-wrap: wrap;
+  }
+  
+  .page-numbers {
+    order: 1;
+    width: 100%;
+    justify-content: center;
+    margin-bottom: 1rem;
+  }
+  
+  .pagination-button {
+    order: 2;
+    flex: 1;
+  }
+}
+
+@media (max-width: 480px) {
+  .services-page .service-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .services-page .service-details {
+    padding: 1rem;
+  }
+  
+  .services-page .pagination {
+    flex-wrap: wrap;
+  }
+  
+  .services-page .pagination button {
+    padding: 0.5rem 0.8rem;
+    min-width: 36px;
   }
 }
