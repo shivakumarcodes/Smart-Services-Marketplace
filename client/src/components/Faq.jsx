@@ -72,6 +72,7 @@ const Faq = () => {
 
   return (
     <section className="faq-section">
+      <h1>Frequently Asked Questions</h1>
       <div className="faq-container">
         <div className="faq-wrapper">
           <div className="faq-questions" data-aos="fade-right">
@@ -126,10 +127,7 @@ const Faq = () => {
             <div className="faq-answer-box">
               <div className="faq-answer-content">
                 {activeIndex !== null ? (
-                  <div 
-                    data-aos="zoom-in"
-                    data-aos-delay="200"
-                  >
+                  <div>
                     <p>{faqData[activeIndex].answer}</p>
                   </div>
                 ) : (

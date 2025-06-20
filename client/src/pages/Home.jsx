@@ -11,6 +11,7 @@ import '../styles/Home.css';
 const FeaturedServices = lazy(() => import('../components/FeaturedServices'));
 const Testimonial = lazy(() => import('../components/Testimonial'));
 const WhatsApp = lazy(() => import('../components/WhatsApp'));
+const Faq = lazy(() => import('../components/Faq'));
 
 const Home = () => {
   const categories = [
@@ -56,7 +57,7 @@ const Home = () => {
       {/* Categories Section */}
       <div data-aos="fade-up" data-aos-delay="50">
         <div className="popular-categories-container">
-          <h2 className="popular-categories-title">Popular Categories</h2>
+          <h2 style={{fontSize: '3rem' }} className="popular-categories-title">Popular Categories</h2>
           <div className="categories-grid">
             {categories.map((category, index) => (
               <CategoryCard
@@ -76,14 +77,20 @@ const Home = () => {
         </div>
       </Suspense>
 
+      <Suspense fallback={<div className="loading-placeholder">Loading Frequently Asked Questions...</div>}>
+        <div style={{margin: '2rem 0',borderRadius: '15px', overflow: 'hidden', border: '0.2rem solid #fff'}} data-aos="fade-up" data-aos-delay="100">
+          <Faq />
+        </div>
+      </Suspense>
+
       {/* Testimonials Section */}
       <div className="testimonials-section">
-        <h1 className="featured-title" data-aos="fade-up" data-aos-delay="50">
+        <h1 style={{marginTop: '2rem'}} className="featured-title" data-aos="fade-up" data-aos-delay="50">
           What our users say
         </h1>
         <Suspense fallback={<div className="loading-placeholder">Loading Testimonials...</div>}>
           <div data-aos="fade-up" data-aos-delay="100">
-            <Testimonial />
+            <Testimonial />.
           </div>
         </Suspense>
       </div>

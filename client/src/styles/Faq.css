@@ -295,6 +295,7 @@
   font-size: 13px;
   font-weight: bold;
   transition: all 0.3s ease;
+  font-family: 'Inter', sans-serif;
 }
 
 @media (min-width: 768px) {
@@ -383,6 +384,7 @@
   align-items: center;
   gap: 20px;
   overflow-y: auto;
+  font-family: 'Poppins', sans-serif;
   font-size: 13px;
   font-weight: 600;
   line-height: 1.5;
@@ -423,6 +425,7 @@
 }
 
 .faq-answer-content p {
+  font-family: 'Poppins', sans-serif;
   margin: 10px 0;
 }
 

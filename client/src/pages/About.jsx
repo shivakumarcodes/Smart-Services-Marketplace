@@ -4,8 +4,6 @@ import 'aos/dist/aos.css';
 import { Link } from 'react-router-dom';
 import { FaCheck, FaBolt, FaHeart, FaArrowRight } from 'react-icons/fa';
 import '../styles/AboutPage.css';
-import Faq from '../components/Faq';
-// import YourServiceJourney from '../components/YourServiceJourney';
 
 const About = () => {
   useEffect(() => {
@@ -37,20 +35,10 @@ const About = () => {
         </div>
         <div className="hero-pattern"></div>
       </section>
-      {/* FAQ Section */}
-      <section className="faq-section"  data-aos="fade-up">
-        <h1>Frequently Asked Questions</h1>
-        <Faq />
-      </section>
-
-      {/* <section className="faq-section"  data-aos="fade-up">
-        <YourServiceJourney />
-      </section> */}
-
 
       {/* Mission Section with Animated Stats */}
-      <section className="mission-section">
-        <div>
+      <section style={{padding:'60px'}} className="mission-section">
+        <div style={{padding:'60px'}}>
           <div className="values-content" data-aos="fade-right">
             <h2 className='section-title'>Our Mission</h2>
             <p className="content">
