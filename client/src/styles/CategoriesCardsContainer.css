@@ -150,12 +150,6 @@
   transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-/* On hover, make the line longer */
-/* .categories-title:hover::after {
-  width: 100px;
-} */
-
-
 /* Optional entrance animation */
 @keyframes fadeSlideIn {
   from {
@@ -171,12 +165,12 @@
 .categories-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: 1.5rem;
+  gap: 1rem; /* Reduced gap since cards now have margins */
   animation: fadeIn 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
   padding: 1rem;
 }
 
-/* Category Card Styling */
+/* Category Card Styling - FIXED DANCING ISSUE */
 .category-card {
   background: #f3f0f0 !important;
   border-radius: 16px;
@@ -189,11 +183,13 @@
   overflow: hidden;
   position: relative;
   will-change: transform, box-shadow;
+  /* Add margin to prevent boundary issues */
+  margin: 6px;
 }
 
-/* Hover Effects */
+/* Fixed Hover Effects - Removed problematic scale */
 .category-card:hover {
-  transform: translateY(-6px) scale(1.02);
+  transform: translateY(-6px);
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.12);
   border-color: var(--primary-light);
   border: 3px solid #16a085 !important;
@@ -229,7 +225,6 @@
     transform: translateY(0);
   }
 }
-
 
 .category-icon {
   font-size: 2.5rem;
@@ -306,14 +301,14 @@
 /* Container Styles */
 .div-container {
   background: linear-gradient(135deg, rgba(22, 160, 133, 0.03), rgba(26, 188, 156, 0.02));
-  border-radius: 0px !important;
+  /* border-radius: 0px !important; */
   padding: 4rem 2rem;
   margin: 2rem auto;
   max-width: 1350px;
   text-align: center;
   position: relative;
   overflow: hidden;
-  border: 3px solid rgba(22, 160, 133, 0.1);
+  /* border: 3px solid rgba(22, 160, 133, 0.1); */
   box-shadow: var(--shadow-sm);
   transition: var(--transition);
   background-color: hsl(43, 100%, 94%) !important;
@@ -326,15 +321,13 @@
   left: 0;
   width: 100%;
   height: 100%;
-  /* background: radial-gradient(circle at 20% 50%, rgba(22, 160, 133, 0.05), transparent 50%); */
   z-index: -1;
 }
 
 .div-container:hover {
   box-shadow: var(--shadow-md);
-  border-color: rgba(18, 27, 25, 0.2);
+  border-color: white !important;
   transform: translateY(-2px);
-  /* background-color: #fff7f5 !important; */
 }
 
 /* Responsive adjustments */
@@ -387,6 +380,7 @@
   
   .category-card {
     padding: 1.5rem 1rem;
+    margin: 4px; /* Reduced margin for mobile */
   }
   
   .Hero-title {
@@ -410,6 +404,7 @@
   
   .category-card {
     padding: 1.5rem;
+    margin: 4px;
   }
   
   .category-icon {

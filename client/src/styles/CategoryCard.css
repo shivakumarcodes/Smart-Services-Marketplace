@@ -26,14 +26,18 @@
   position: relative;
   will-change: transform, box-shadow;
   z-index: 1;
+  /* Add margin to create stable hover boundaries */
+  margin: 8px;
 }
 
+/* FIXED: Removed the problematic floating animation */
 .category-card:hover {
   transform: translateY(-6px);
   box-shadow: var(--shadow-lg);
   color: white;
   border-color: transparent;
   box-shadow: #111827 2px 2px 1px 10px inset, var(--shadow-lg);
+  /* Remove the float animation that was causing jittering */
 }
 
 /* Gradient overlay effect */
@@ -80,9 +84,10 @@
   display: inline-block;
 }
 
+/* FIXED: Removed scale from icon hover to prevent boundary issues */
 .category-card:hover .category-icon {
   color: white;
-  transform: translateY(-5px) scale(1.1);
+  transform: translateY(-5px);
   filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
 }
 
@@ -100,7 +105,9 @@
   text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-/* Subtle floating animation */
+/* REMOVED: The problematic floating animation */
+/* This was causing the jittering issue */
+/*
 @keyframes float {
   0%, 100% { transform: translateY(-6px); }
   50% { transform: translateY(-8px); }
@@ -109,6 +116,24 @@
 .category-card:hover {
   animation: float 3s ease-in-out infinite;
 }
+*/
+
+/* Optional: Add a subtle pulse effect instead of float (if you want some animation) */
+@keyframes subtlePulse {
+  0%, 100% { 
+    box-shadow: #111827 2px 2px 1px 10px inset, var(--shadow-lg);
+  }
+  50% { 
+    box-shadow: #111827 2px 2px 1px 12px inset, var(--shadow-lg);
+  }
+}
+
+/* Uncomment this if you want a subtle pulse instead of float */
+/*
+.category-card:hover {
+  animation: subtlePulse 2s ease-in-out infinite;
+}
+*/
 
 /* Optional badge for featured categories */
 .category-badge {
@@ -129,4 +154,12 @@
   background-color: rgba(255, 255, 255, 0.9);
   color: var(--primary-dark);
   transform: scale(1.05);
+}
+
+/* Grid container adjustments to account for card margins */
+.categories-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1rem; /* Reduced gap since cards have margins */
+  padding: 1rem;
 }
