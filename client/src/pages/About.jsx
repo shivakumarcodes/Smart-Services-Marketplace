@@ -2,7 +2,7 @@ import React,{ useEffect } from 'react';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
 import { Link } from 'react-router-dom';
-import { FaCheck, FaBolt, FaHeart, FaArrowRight } from 'react-icons/fa';
+import { FaCheck, FaBolt, FaHeart, FaArrowRight, FaSearch, FaCalendarAlt, FaHandshake, FaStar } from 'react-icons/fa';
 import '../styles/AboutPage.css';
 
 const About = () => {
@@ -34,6 +34,43 @@ const About = () => {
           </Link>
         </div>
         <div className="hero-pattern"></div>
+      </section>
+
+      {/* How It Works Section */}
+      <section className="how-it-works">
+        <div className="container">
+          <h2 className="section-title" data-aos="fade-up">How It Works</h2>
+          <div className="steps-container">
+            <div className="step" data-aos="fade-up" data-aos-delay="100">
+              <div className="step-icon">
+                <FaSearch />
+              </div>
+              <h3>1. Find a Service</h3>
+              <p>Browse our wide range of service categories and find the perfect professional for your needs.</p>
+            </div>
+            <div className="step" data-aos="fade-up" data-aos-delay="200">
+              <div className="step-icon">
+                <FaCalendarAlt />
+              </div>
+              <h3>2. Book an Appointment</h3>
+              <p>Select your preferred date and time. Our professionals will confirm availability instantly.</p>
+            </div>
+            <div className="step" data-aos="fade-up" data-aos-delay="300">
+              <div className="step-icon">
+                <FaHandshake />
+              </div>
+              <h3>3. Get It Done</h3>
+              <p>Your professional arrives on time and completes the job to your satisfaction.</p>
+            </div>
+            <div className="step" data-aos="fade-up" data-aos-delay="400">
+              <div className="step-icon">
+                <FaStar />
+              </div>
+              <h3>4. Rate & Review</h3>
+              <p>Share your experience to help others find the best service providers.</p>
+            </div>
+          </div>
+        </div>
       </section>
 
       {/* Mission Section with Animated Stats */}

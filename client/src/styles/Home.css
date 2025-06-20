@@ -295,3 +295,19 @@
     --shadow-lg: 0 20px 25px -5px rgba(0, 0, 0, 0.3), 0 10px 10px -5px rgba(0, 0, 0, 0.2);
   }
 }
+
+  /* FAQ Section */
+  .faq-section {
+    padding: 2rem !important;
+    background-color: #dae7f3;
+  }
+
+   .faq-section h1 {
+    font-size: 3rem;
+    font-weight: 700;
+    margin-bottom: 2rem;
+    color: #FF6B35;
+    position: relative;
+    display: inline-block;
+    text-shadow: #839bae 0px 2px 4px;
+  }
