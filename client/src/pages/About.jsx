@@ -46,15 +46,25 @@ const About = () => {
                 <FaSearch />
               </div>
               <h3>1. Find a Service</h3>
-              <p>Browse our wide range of service categories and find the perfect professional for your needs.</p>
+              <p>Browse our service categories and find the perfect professional for your needs.</p>
             </div>
+            
+            <svg className="step-arrow" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="40" height="40" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M5 12h14M12 5l7 7-7 7"/>
+            </svg>
+            
             <div className="step" data-aos="fade-up" data-aos-delay="200">
               <div className="step-icon">
                 <FaCalendarAlt />
               </div>
-              <h3>2. Book an Appointment</h3>
+              <h3>2. Book a service</h3>
               <p>Select your preferred date and time. Our professionals will confirm availability instantly.</p>
             </div>
+            
+            <svg className="step-arrow" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="40" height="40" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M5 12h14M12 5l7 7-7 7"/>
+            </svg>
+            
             <div className="step" data-aos="fade-up" data-aos-delay="300">
               <div className="step-icon">
                 <FaHandshake />
@@ -62,6 +72,11 @@ const About = () => {
               <h3>3. Get It Done</h3>
               <p>Your professional arrives on time and completes the job to your satisfaction.</p>
             </div>
+            
+            <svg className="step-arrow" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="40" height="40" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M5 12h14M12 5l7 7-7 7"/>
+            </svg>
+            
             <div className="step" data-aos="fade-up" data-aos-delay="400">
               <div className="step-icon">
                 <FaStar />
@@ -76,8 +91,8 @@ const About = () => {
       {/* Mission Section with Animated Stats */}
       <section style={{padding:'60px'}} className="mission-section">
         <div style={{padding:'60px'}}>
+          <h2 className='section-title'>Our Mission</h2>
           <div className="values-content" data-aos="fade-right">
-            <h2 className='section-title'>Our Mission</h2>
             <p className="content">
               At Smart Services, we're transforming how people find and book local services. 
               Our platform bridges the gap between skilled professionals and customers who 
@@ -141,8 +156,8 @@ const About = () => {
 
       {/* Team Section with Hover Effects */}
       <section className="team-section">
-        <div className="team-container">
           <h2 className="section-title" data-aos="fade-up">Meet The Team</h2>
+        <div className="team-container">
           <div className="team-grid">
             <div className="team-member" data-aos="fade-up" data-aos-delay="100">
               <div className="member-photo photo-1"></div>
