@@ -33,7 +33,7 @@
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  background: var(--card-gradient);
+  background: #2c3e50;
   border-radius: var(--border-radius-large);
   padding: 40px;
   gap: 32px;
@@ -104,6 +104,7 @@
   height: 100%;
   object-fit: cover;
   transition: var(--transition);
+  border-color: #34495e;
 }
 
 .testimonial-card:hover .testimonial-image img {
