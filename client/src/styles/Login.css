@@ -4,7 +4,6 @@
   --primary-dark: #0c6452;
   --secondary: #f72585;
   --accent: #4cc9f0;
-  --text-primary: #17181e;
   --bg-light: #f8f9fa;
   --bg-white: #ffffff;
   --border-light: #e9ecef;
@@ -44,7 +43,7 @@
 
 .login-header h2 {
   font-size: 2rem;
-  color: var(--text-primary);
+  color: black;
   margin-bottom: 0.5rem;
   font-weight: 700;
 }

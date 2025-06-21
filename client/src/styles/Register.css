@@ -5,7 +5,6 @@
   --primary-dark: #0c6452;
   --secondary: #f72585;
   --accent: #4cc9f0;
-  --text-primary: #2b2d42;
   --bg-light: #f8f9fa;
   --bg-white: #ffffff;
   --border-light: #e9ecef;
@@ -45,7 +44,7 @@
 
 .register-header h2 {
   font-size: 2rem;
-  color: var(--text-primary);
+  color: black;
   margin-bottom: 0.5rem;
   margin-top: 0.5rem;
   font-weight: 700;

@@ -150,7 +150,104 @@ const ServiceDetail = () => {
     }
   };
 
-  if (loading) return <div className="loading">Loading service details...</div>;
+  const renderSkeletonLoader = () => {
+    return (
+      <div className="service-detail-container">
+        {/* Header Skeleton */}
+        <div className="service-header skeleton-header" data-aos="fade-down">
+          <div className="skeleton-title"></div>
+          <div className="service-meta">
+            <span className="price skeleton-text"></span>
+            <span className="duration skeleton-text"></span>
+            <div className="rating skeleton-rating"></div>
+          </div>
+        </div>
+
+        {/* Main Content Skeleton */}
+        <div className="service-content">
+          <div className="service-image-wrapper skeleton-image-wrapper" data-aos="fade-right">
+            <div className="skeleton-image"></div>
+          </div>
+
+          <div className="service-info">
+            <div className="info-section" data-aos="fade-left" data-aos-delay="100">
+              <div className="head skeleton-head"></div>
+              <div className="description skeleton-description"></div>
+              <div className="description skeleton-description"></div>
+              <div className="description skeleton-description" style={{width: '80%'}}></div>
+            </div>
+
+            <div className="info-section" data-aos="fade-left" data-aos-delay="200">
+              <div className="head skeleton-head"></div>
+              <ul className="service-details-list">
+                {[...Array(4)].map((_, i) => (
+                  <li key={i} className="skeleton-text"></li>
+                ))}
+              </ul>
+            </div>
+
+            <div className="action-buttons">
+              <div className="book-button skeleton-button"></div>
+            </div>
+          </div>
+        </div>
+
+        {/* Provider Section Skeleton */}
+        <div className="provider-section">
+          <div className="skeleton-head" data-aos="fade-down"></div>
+          <div className="provider-card" data-aos="zoom-in">
+            <div className="provider-avatar skeleton-avatar"></div>
+            <div className="provider-info">
+              <div className="skeleton-text" style={{width: '60%'}} data-aos="fade-right" data-aos-delay="100"></div>
+              <div className="skeleton-text" style={{width: '40%'}} data-aos="fade-right" data-aos-delay="150"></div>
+              <div className="skeleton-text" style={{width: '30%'}} data-aos="fade-right" data-aos-delay="200"></div>
+              <div className="skeleton-text" style={{width: '100%'}} data-aos="fade-right" data-aos-delay="250"></div>
+              <div className="skeleton-text" style={{width: '80%'}} data-aos="fade-right" data-aos-delay="300"></div>
+              
+              <div className="provider-stats">
+                {[...Array(3)].map((_, i) => (
+                  <div className="stat-item" data-aos="fade-up" data-aos-delay={300 + (i * 50)} key={i}>
+                    <span className="stat-value skeleton-text"></span>
+                    <span className="stat-label skeleton-text"></span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Reviews Section Skeleton */}
+        <div className="reviews-section">
+          <div className="skeleton-head" data-aos="fade-down"></div>
+          <div className="reviews-list">
+            {[...Array(2)].map((_, i) => (
+              <div 
+                key={i} 
+                className="review-card skeleton-review"
+                data-aos="fade-up"
+                data-aos-delay={i * 100}
+              >
+                <div className="review-header">
+                  <div className="reviewer-avatar skeleton-avatar"></div>
+                  <div className="reviewer-info">
+                    <div className="skeleton-text" style={{width: '40%'}}></div>
+                    <div className="review-meta">
+                      <div className="review-rating skeleton-rating"></div>
+                      <div className="review-date skeleton-text"></div>
+                    </div>
+                  </div>
+                </div>
+                <div className="review-comment skeleton-text"></div>
+                <div className="review-comment skeleton-text" style={{width: '80%'}}></div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    );
+  };
+
+  if (loading) return renderSkeletonLoader();
   if (error) return <div className="error">Error: {error}</div>;
   if (!service) return <div className="not-found">Service not found</div>;
 

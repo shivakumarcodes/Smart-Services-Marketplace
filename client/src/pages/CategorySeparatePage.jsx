@@ -198,15 +198,39 @@ export default function CategorySeparatePage() {
     );
   };
 
-  if (loading) {
+  const renderSkeletonLoader = () => {
     return (
       <div className="services-page">
         <div className="div-container">
-          <h1 className="categories-title" data-aos="fade-down">Loading {formattedCategoryName} services...</h1>
-          <div className="loading" aria-live="polite">Loading services...</div>
+          <h1 className="categories-title skeleton-title" data-aos="fade-down"></h1>
+          <p className="category-description skeleton-description" data-aos="fade-up" data-aos-delay="100"></p>
+        </div>
+
+        <div className="service-grid">
+          {[...Array(ITEMS_PER_PAGE)].map((_, index) => (
+            <article 
+              key={index} 
+              className="service-card skeleton-card"
+              data-aos="fade-up"
+              data-aos-delay={(index % 4) * 100}
+            >
+              <div className="service-image skeleton-image"></div>
+              <div className="service-details">
+                <h2 className="skeleton-text"></h2>
+                <p className="service-provider skeleton-text"></p>
+                <div className="service-rating skeleton-rating"></div>
+                <p className="service-price skeleton-text"></p>
+                <p className="service-location skeleton-text"></p>
+              </div>
+            </article>
+          ))}
         </div>
       </div>
     );
+  };
+
+  if (loading) {
+    return renderSkeletonLoader();
   }
 
   if (error) {
