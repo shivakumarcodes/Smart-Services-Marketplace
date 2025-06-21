@@ -33,7 +33,7 @@
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  background: #2c3e50;
+  background: rgb(33, 34, 58);
   border-radius: var(--border-radius-large);
   padding: 40px;
   gap: 32px;

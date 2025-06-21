@@ -407,7 +407,7 @@ const ProfilePage = () => {
       )}
 
       {profile.bookings && profile.bookings.length > 0 && (
-          <div style={{width: '70vw',padding: '1.5rem'}} className="popular-categories-container bookings-grid">
+          <div style={{width: '70vw',padding: '1.5rem'}} className="bookings-grid">
             <h1 style={{textShadow: '2px 2px 8px rgba(0, 0, 0, 0.3)'}} className='popular-categories-title'>My Bookings</h1>
             <div className="bookings-list">
               {profile.bookings.slice(0, showAllBookings ? 8 : 4).map((booking, index) => (
