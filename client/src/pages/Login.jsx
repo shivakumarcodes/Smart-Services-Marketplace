@@ -164,8 +164,8 @@ const Login = () => {
             type="submit"
             className="login-button"
             disabled={isSubmitting}
-            data-aos="zoom-in"
-            data-aos-delay="700"
+            data-aos="fade-in"
+            data-aos-delay="300"
           >
             {isSubmitting ? 'Logging In...' : 'Log In'}
           </button>
@@ -175,6 +175,8 @@ const Login = () => {
             className="guest-login-button"
             onClick={() => setShowGuestModal(true)}
             disabled={isSubmitting}
+            data-aos="fade-in"
+            data-aos-delay="300"
           >
             Guest Login
           </button>

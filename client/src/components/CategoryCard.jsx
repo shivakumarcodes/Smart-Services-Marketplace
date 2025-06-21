@@ -10,7 +10,7 @@ export default function CategoryCard({ name, icon }) {
   return (
     <div className="category-card" onClick={() => handleCategoryClick(name)} >
       <div className="category-icon">{icon}</div>
-      <h3 className="category-name">{name}</h3>
+      <h3 style={{color: 'black'}} className="category-name">{name}</h3>
     </div>
   );
 }

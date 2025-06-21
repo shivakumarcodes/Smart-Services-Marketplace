@@ -43,7 +43,7 @@ const Home = () => {
       </div>
 
       <div className="div-container" data-aos="fade-up" data-aos-delay="50">
-        <h1 className="Hero-title" data-aos="fade-up" data-aos-delay="100">
+        <h1 style={{marginTop: '1.5rem', padding: '0'}} className="Hero-title" data-aos="fade-up" data-aos-delay="100">
           Find a trusted service provider
         </h1>
         <p className="categories-title" data-aos="fade-up" data-aos-delay="150">

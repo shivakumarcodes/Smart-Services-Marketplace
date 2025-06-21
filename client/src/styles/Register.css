@@ -6,7 +6,6 @@
   --secondary: #f72585;
   --accent: #4cc9f0;
   --text-primary: #2b2d42;
-  --text-secondary: #8d99ae;
   --bg-light: #f8f9fa;
   --bg-white: #ffffff;
   --border-light: #e9ecef;
@@ -25,12 +24,7 @@
 .register-container {
   display: flex;
   justify-content: center;
-  /* align-items: center; */
   width: 100%;
-  /* min-height: 100vh; */
-  /* background-color: #98D2C0; */
-  padding: 2rem;
-  /* background-image: radial-gradient(circle at 10% 20%, rgba(67, 97, 238, 0.05) 0%, rgba(255, 255, 255, 1) 90%); */
 }
 
 .register-card {
@@ -39,7 +33,7 @@
   box-shadow: var(--shadow-lg);
   width: 100%;
   max-width: 800px;
-  padding: 2.5rem;
+  padding: 1.5rem;
   margin: 2rem 0;
   border: 1px solid rgba(0, 0, 0, 0.05);
 }
@@ -53,11 +47,12 @@
   font-size: 2rem;
   color: var(--text-primary);
   margin-bottom: 0.5rem;
+  margin-top: 0.5rem;
   font-weight: 700;
 }
 
 .register-header p {
-  color: var(--text-secondary);
+  color: grey;
   font-size: 1rem;
   margin-bottom: 0;
 }
@@ -186,7 +181,7 @@
 .login-link {
   text-align: center;
   margin-top: 1.5rem;
-  color: var(--text-secondary);
+  color: grey;
   font-size: 0.95rem;
 }
 

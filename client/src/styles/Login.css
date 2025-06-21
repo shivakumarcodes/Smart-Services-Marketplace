@@ -4,8 +4,7 @@
   --primary-dark: #0c6452;
   --secondary: #f72585;
   --accent: #4cc9f0;
-  --text-primary: #2b2d42;
-  --text-secondary: #8d99ae;
+  --text-primary: #17181e;
   --bg-light: #f8f9fa;
   --bg-white: #ffffff;
   --border-light: #e9ecef;
@@ -24,11 +23,7 @@
 .login-container {
   display: flex;
   justify-content: center;
-  /* align-items: center; */
   width: 100%;
-  /* min-height: 100vh; */
-  /* background-color: #98D2C0; */
-  padding: 2rem;
 }
 
 .login-card {
@@ -37,13 +32,14 @@
   box-shadow: var(--shadow-lg);
   width: 100%;
   max-width: 500px;
-  padding: 2.5rem;
+  padding: 1.5rem;
   margin: 1rem 0;
 }
 
 .login-header {
   text-align: center;
-  margin-bottom: 2rem;
+  margin-bottom: 1rem;
+  margin-top: 1rem;
 }
 
 .login-header h2 {
@@ -54,14 +50,14 @@
 }
 
 .login-header p {
-  color: var(--text-secondary);
+  color: rgb(73, 71, 71);
   font-size: 1rem;
 }
 
 .login-form {
   display: flex;
   flex-direction: column;
-  gap: 1.5rem;
+  gap: 0.5rem;
 }
 
 .form-group {
@@ -153,7 +149,7 @@
 .register-link {
   text-align: center;
   margin-top: 1.5rem;
-  color: var(--text-secondary);
+  color: rgb(73, 71, 71);
 }
 
 .register-link a {
@@ -188,7 +184,7 @@
   padding: 12px;
   margin-left: 7px;
   margin-top: 10px;
-  background-color: rgb(175, 8, 8);
+  background-color: rgb(194, 23, 23);
   color: white;
   border: none;
   border-radius: 6px;
