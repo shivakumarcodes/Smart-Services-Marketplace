@@ -1,8 +1,21 @@
-import React, { useState,useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import '../styles/NewServiceForm.css';
 import { BASE_URL } from '../api/axiosInstance';
+
+const LOCATION_OPTIONS = [
+  'Hyderabad',
+  'Siddipet',
+  'Karimnagar',
+  'Warangal',
+  'Khammam',
+  'Nizamabad',
+  'Medak',
+  'Adilabad',
+  'Nalgonda',
+  'Mahbubnagar'
+];
 
 const NewServiceForm = () => {
   const navigate = useNavigate();
@@ -12,29 +25,30 @@ const NewServiceForm = () => {
     category: '',
     basePrice: '',
     durationMinutes: '',
+    location: ''
   });
   const [images, setImages] = useState([]);
   const [previewImages, setPreviewImages] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [success, setSuccess] = useState(false);
-
-  // const BASE_URL = 'http://localhost:5000';
+  const [locationInput, setLocationInput] = useState('');
+  const [locationSuggestions, setLocationSuggestions] = useState([]);
+  const [showSuggestions, setShowSuggestions] = useState(false);
 
   const [categories, setCategories] = useState([]);
 
-useEffect(() => {
-  const fetchCategories = async () => {
-    try {
-      const res = await axios.get(`${BASE_URL}/api/categories`);
-      setCategories(res.data.categories);
-    } catch (err) {
-      console.error('Failed to fetch categories:', err);
-    }
-  };
-  fetchCategories();
-}, []);
-
+  useEffect(() => {
+    const fetchCategories = async () => {
+      try {
+        const res = await axios.get(`${BASE_URL}/api/categories`);
+        setCategories(res.data.categories);
+      } catch (err) {
+        console.error('Failed to fetch categories:', err);
+      }
+    };
+    fetchCategories();
+  }, []);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -42,6 +56,31 @@ useEffect(() => {
       ...prev,
       [name]: value
     }));
+  };
+
+  const handleLocationInputChange = (e) => {
+    const value = e.target.value;
+    setLocationInput(value);
+    
+    if (value.length > 0) {
+      const filtered = LOCATION_OPTIONS.filter(location =>
+        location.toLowerCase().includes(value.toLowerCase())
+      );
+      setLocationSuggestions(filtered);
+      setShowSuggestions(true);
+    } else {
+      setLocationSuggestions([]);
+      setShowSuggestions(false);
+    }
+  };
+
+  const selectLocation = (location) => {
+    setLocationInput(location);
+    setFormData(prev => ({
+      ...prev,
+      location: location
+    }));
+    setShowSuggestions(false);
   };
 
   const handleImageChange = (e) => {
@@ -76,8 +115,8 @@ useEffect(() => {
     setError(null);
 
     // Validate form data
-    if (!formData.title.trim() || !formData.description.trim() || !formData.category || !formData.basePrice) {
-      setError('Title, description, category and base price are required');
+    if (!formData.title.trim() || !formData.description.trim() || !formData.category || !formData.basePrice || !formData.location) {
+      setError('Title, description, category, location and base price are required');
       setLoading(false);
       return;
     }
@@ -100,6 +139,7 @@ useEffect(() => {
       formDataToSend.append('description', formData.description);
       formDataToSend.append('category', formData.category);
       formDataToSend.append('basePrice', formData.basePrice);
+      formDataToSend.append('location', formData.location);
       if (formData.durationMinutes) {
         formDataToSend.append('durationMinutes', formData.durationMinutes);
       }
@@ -222,6 +262,34 @@ useEffect(() => {
               step="15"
               placeholder="60"
             />
+          </div>
+        </div>
+
+        <div className="form-group">
+          <label htmlFor="location">Service Location*</label>
+          <div className="location-input-container">
+            <input
+              type="text"
+              id="location"
+              name="location"
+              value={locationInput}
+              onChange={handleLocationInputChange}
+              placeholder="Start typing a location (e.g., Hyderabad)"
+              required
+              onFocus={() => setShowSuggestions(true)}
+            />
+            {showSuggestions && locationSuggestions.length > 0 && (
+              <ul className="location-suggestions">
+                {locationSuggestions.map((location, index) => (
+                  <li 
+                    key={index}
+                    onClick={() => selectLocation(location)}
+                  >
+                    {location}
+                  </li>
+                ))}
+              </ul>
+            )}
           </div>
         </div>
 

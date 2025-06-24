@@ -385,7 +385,7 @@ app.get('/api/categories', async (req, res) => {
   }
 });
 
-// Get services
+//Get services
 app.get('/api/services', async (req, res) => {
   try {
     const { 
@@ -413,9 +413,9 @@ app.get('/api/services', async (req, res) => {
     }
     
     if (location) {
-      // Support for exact location match or partial match
-      conditions.push('(u.location = ? OR u.location LIKE ?)');
-      params.push(location, `%${location}%`);
+      // Search in both service location and provider location
+      conditions.push('(s.location = ? OR s.location LIKE ? OR u.location = ? OR u.location LIKE ?)');
+      params.push(location, `%${location}%`, location, `%${location}%`);
     }
     
     if (minPrice) {
@@ -434,7 +434,7 @@ app.get('/api/services', async (req, res) => {
     }
     
     // Validate sort parameters to prevent SQL injection
-    const allowedSortColumns = ['created_at', 'base_price', 'rating', 'title'];
+    const allowedSortColumns = ['created_at', 'base_price', 'rating', 'title', 'location'];
     const allowedSortOrders = ['ASC', 'DESC'];
     
     const sortColumn = allowedSortColumns.includes(sortBy) ? sortBy : 'created_at';
@@ -449,6 +449,7 @@ app.get('/api/services', async (req, res) => {
         s.category,
         s.description,
         s.duration_minutes,
+        s.location,
         p.provider_id,
         p.service_type,
         p.experience_years,
@@ -456,7 +457,6 @@ app.get('/api/services', async (req, res) => {
         u.user_id,
         u.name AS provider_name,
         u.profile_picture_url,
-        u.location,
         (SELECT image_url 
          FROM service_images 
          WHERE service_id = s.service_id AND is_primary = TRUE 
@@ -470,6 +470,7 @@ app.get('/api/services', async (req, res) => {
       JOIN users u ON p.user_id = u.user_id
       WHERE ${conditions.join(' AND ')}
       ORDER BY ${sortColumn === 'rating' ? 'p.rating' : `s.${sortColumn}`} ${order}
+      LIMIT ? OFFSET ?
     `;
     
     // Count query for pagination
@@ -492,14 +493,6 @@ app.get('/api/services', async (req, res) => {
     
     res.status(200).json({
       services: services[0],
-      // pagination: {
-      //   totalServices,
-      //   totalPages,
-      //   currentPage: parseInt(page),
-      //   servicesPerPage: parseInt(limit),
-      //   hasNextPage: page < totalPages,
-      //   hasPreviousPage: page > 1
-      // },
       filters: {
         applied: {
           category,
@@ -594,11 +587,11 @@ app.post('/api/services', authenticate, authorize(['provider']), upload.array('i
   try {
     await connection.beginTransaction();
     
-    const { title, description, category, basePrice, durationMinutes } = req.body;
+    const { title, description, category, basePrice, durationMinutes, location } = req.body;
 
     // Validate inputs
-    if (!title?.trim() || !description?.trim() || !category?.trim() || basePrice === undefined) {
-      return res.status(400).json({ message: 'Title, description, category and base price are required' });
+    if (!title?.trim() || !description?.trim() || !category?.trim() || basePrice === undefined || !location?.trim()) {
+      return res.status(400).json({ message: 'Title, description, category, base price and location are required' });
     }
 
     const numericPrice = parseFloat(basePrice);
@@ -622,10 +615,10 @@ app.post('/api/services', authenticate, authorize(['provider']), upload.array('i
     // Generate UUID for service_id
     const serviceId = uuidv4();
 
-    // Insert service
+    // Insert service with location
     await connection.execute(
-      'INSERT INTO services (service_id, provider_id, title, description, category, base_price, duration_minutes) VALUES (?, ?, ?, ?, ?, ?, ?)',
-      [serviceId, providerId, title.trim(), description.trim(), category.trim(), numericPrice, durationMinutes || null]
+      'INSERT INTO services (service_id, provider_id, title, description, category, base_price, duration_minutes, location) VALUES (?, ?, ?, ?, ?, ?, ?, ?)',
+      [serviceId, providerId, title.trim(), description.trim(), category.trim(), numericPrice, durationMinutes || null, location.trim()]
     );
 
     // Handle image uploads
@@ -653,6 +646,7 @@ app.post('/api/services', authenticate, authorize(['provider']), upload.array('i
       category,
       basePrice: numericPrice,
       durationMinutes: durationMinutes || null,
+      location: location.trim(),
       message: 'Service created successfully'
     });
 
