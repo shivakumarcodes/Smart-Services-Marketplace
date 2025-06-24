@@ -806,3 +806,13 @@
     display: none;
   }
 }
+
+.map-link {
+  color: #1d4ed8;
+  text-decoration: none;
+  transition: text-decoration 0.2s;
+}
+
+.map-link:hover {
+  text-decoration: underline;
+}

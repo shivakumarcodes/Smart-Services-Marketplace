@@ -112,12 +112,19 @@ const BookingDetailsModal = ({
               <div className="booking-address">
                 <h4 style={{display: 'flex',justifyContent: 'center'}}>Service Address:</h4>
                 <div className="address-details">
-                  {(booking.address) && (
-                    <p>
+                {booking.address && (
+                  <p>
+                    <a
+                      href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(booking.address)}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="map-link"
+                    >
                       {booking.address}
-                    </p>
-                  )}
-                </div>
+                    </a>
+                  </p>
+                )}
+              </div>
               </div>
             )}
 
