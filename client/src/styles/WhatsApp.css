@@ -1,8 +1,97 @@
-.whatsapp-container {
+/* WhatsApp Widget Container */
+.whatsapp-wrapper {
   position: fixed;
   bottom: 2rem;
   right: 2rem;
   z-index: 1000;
+  display: flex;
+  align-items: flex-end;
+  gap: 0.3rem;
+}
+
+/* "We're Online" Message Container */
+.zsiq_cnt {
+  position: relative;
+  background: #fff;
+  border-radius: 8px;
+  padding: 12px 16px;
+  padding-right: 30px; /* Space for close button */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  max-width: 200px;
+  text-align: center;
+  animation: fadeInUp 0.3s ease-out;
+  transform-origin: bottom right;
+}
+
+/* Speech Bubble Pointer */
+.zsiq_cnt:after {
+  display: inline-block;
+  content: '';
+  position: absolute;
+  background-color: #fff;
+  height: 10px;
+  width: 10px;
+  transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  -webkit-transform: rotate(45deg);
+  -o-transform: rotate(45deg);
+  -moz-transform: rotate(45deg);
+  top: 50%;
+  right: -5px;
+  margin-top: -5px;
+  border-radius: 0 3px 0 0;
+  box-shadow: 1px -1px 4px 0 rgba(0, 0, 0, 0.1);
+}
+
+#zsiq_maintitle {
+  font-weight: bold;
+  color: #25D366;
+  margin-bottom: 4px;
+  font-size: 14px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+#zsiq_byline {
+  color: #666;
+  font-size: 12px;
+  margin: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Close Button */
+.siqico-close {
+  position: absolute;
+  top: 4px;
+  right: 4px;
+  width: 20px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+  color: #999;
+  padding: 0;
+  margin: 0;
+  line-height: 1;
+  border-radius: 50%;
+  transition: all 0.2s ease;
+  z-index: 1; /* Ensure it appears above the speech bubble pointer */
+}
+
+.siqico-close:hover {
+  color: #666;
+  background: rgba(0, 0, 0, 0.05);
+}
+
+/* WhatsApp Button Container */
+.whatsapp-container {
   filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.1));
   transition: transform 200ms ease;
 }
@@ -11,12 +100,13 @@
   transform: translateY(-2px);
 }
 
+/* WhatsApp Button Styles */
 .whatsapp-button {
   display: flex;
   align-items: center;
   justify-content: center;
   padding: 1rem;
-  background-color: #25D366; /* Official WhatsApp green */
+  background-color: #25D366;
   border-radius: 9999px;
   transition: all 300ms cubic-bezier(0.175, 0.885, 0.32, 1.275);
   margin: 0.5rem !important;
@@ -25,12 +115,12 @@
   cursor: pointer;
   outline: none;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  min-width: 3.5rem; /* Fixed size for the circle */
+  min-width: 3.5rem;
   height: 3.5rem;
 }
 
 .whatsapp-button:hover {
-  background-color: #128C7E; /* Darker WhatsApp green */
+  background-color: #128C7E;
   box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
 }
 
@@ -43,6 +133,7 @@
   transform: scale(0.98);
 }
 
+/* WhatsApp Icon */
 .whatsapp-icon {
   color: white;
   font-size: 1.5rem;
@@ -53,6 +144,7 @@
   padding-top: 5px;
 }
 
+/* WhatsApp Text */
 .whatsapp-text {
   color: white;
   font-weight: 600;
@@ -66,12 +158,18 @@
   margin-right: 0.25rem;
 }
 
-/* Animation for the text */
+/* Animations */
 @keyframes fadeIn {
   from { opacity: 0; transform: translateX(-10px); }
   to { opacity: 1; transform: translateX(0); }
 }
 
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Responsive Styles */
 @media (min-width: 640px) {
   .whatsapp-button {
     padding: 1rem 1.25rem;
@@ -89,17 +187,18 @@
   }
 }
 
-/* Reduced motion preference */
+/* Reduced Motion Preference */
 @media (prefers-reduced-motion: reduce) {
   .whatsapp-button,
   .whatsapp-container,
-  .whatsapp-text {
+  .whatsapp-text,
+  .zsiq_cnt {
     transition: none !important;
     animation: none !important;
   }
 }
 
-/* Dark mode adaptation */
+/* Dark Mode Styles */
 @media (prefers-color-scheme: dark) {
   .whatsapp-container {
     filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.3));
@@ -112,12 +211,41 @@
   .whatsapp-button:hover {
     box-shadow: 0 6px 8px rgba(0, 0, 0, 0.4);
   }
+  
+  .zsiq_cnt {
+    background: #333;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+  }
+  
+  .zsiq_cnt:after {
+    background-color: #333;
+    box-shadow: 1px -1px 4px 0 rgba(0, 0, 0, 0.3);
+  }
+  
+  #zsiq_maintitle {
+    color: #25D366;
+  }
+  
+  #zsiq_byline {
+    color: #ccc;
+  }
+  
+  .siqico-close {
+    color: #ccc;
+  }
+  
+  .siqico-close:hover {
+    color: #fff;
+    background: rgba(255, 255, 255, 0.1);
+  }
 }
 
+/* Button Group Styles */
 .whatsapp-button.group {
-    padding: 0.8rem !important;
-  }
+  padding: 0.8rem !important;
+}
 
-  .whatsapp-container a {
+/* Link Styles */
+.whatsapp-container a {
   text-decoration: none !important;
 }

@@ -77,16 +77,16 @@ const TestimonialCarousel = () => {
               loading="lazy"
             />
           </div>
-          <div className="testimonial-content">
-            <p className="testimonial-quote">
+          <div style={{color: 'white'}} className="testimonial-content">
+            <p style={{color: 'white'}} className="testimonial-quote">
               {testimonials[activeTestimonial].quote}
             </p>
-            <div className="testimonial-author">
-              <p className="author-name">
+            <div style={{color: 'white'}} className="testimonial-author">
+              <p style={{color: 'white'}} className="author-name">
                 {testimonials[activeTestimonial].name}
               </p>
-              <div className="author-info">
-                <span className="role-title">{testimonials[activeTestimonial].role}</span><br />
+              <div style={{color: 'white'}} className="author-info">
+                <span style={{color: 'white'}} className="role-title">{testimonials[activeTestimonial].role}</span><br />
                 {/* {testimonials[activeTestimonial].company} */}
               </div>
             </div>

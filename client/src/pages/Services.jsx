@@ -429,7 +429,6 @@ const Services = () => {
                     />
                   </div>
                   <div className="service-details">
-                    {/* <h2>{service.title}</h2> */}
                     <h2>{service.title.charAt(0).toUpperCase() + service.title.slice(1)}</h2>
                     <p className="service-provider">by {service.provider_name}</p>
                     <div className="service-rating">
