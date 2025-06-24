@@ -4,8 +4,6 @@ import { useAuth } from '../context/AuthContext';
 import axios from 'axios';
 import { BASE_URL } from '../api/axiosInstance';
 import '../styles/Navbar.css';
-import AOS from 'aos';
-import 'aos/dist/aos.css';
 
 const Navbar = () => {
   const { user, logout } = useAuth();
@@ -16,16 +14,6 @@ const Navbar = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const dropdownRef = useRef(null);
-
-  useEffect(() => {
-    // Initialize AOS for navbar animations
-    AOS.init({
-      duration: 500,
-      easing: 'ease-out',
-      once: true,
-      mirror: false
-    });
-  }, []);
 
   useEffect(() => {
     // Close mobile menu when route changes
@@ -164,9 +152,9 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="navbar" data-aos="fade-down">
+    <nav className="navbar">
       <div className="nav-container">
-        <Link to="/" className="logo" data-aos="fade-right" data-aos-delay="100">
+        <Link to="/" className="logo">
           <svg className="logo-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M12 2L3 7L12 12L21 7L12 2Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
             <path d="M3 17L12 22L21 17" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
@@ -179,8 +167,6 @@ const Navbar = () => {
           className="menu-toggle" 
           onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
           aria-label="Toggle menu"
-          data-aos="fade-left"
-          data-aos-delay="100"
         >
           {isMobileMenuOpen ? (
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -200,24 +186,18 @@ const Navbar = () => {
           <Link 
             to="/" 
             className={isActive('/')}
-            data-aos="fade-down" 
-            data-aos-delay="200"
           >
             Home
           </Link>
           <Link 
             to="/services" 
             className={isActive('/services')}
-            data-aos="fade-down" 
-            data-aos-delay="250"
           >
             Services
           </Link>
           <Link 
             to="/about" 
             className={isActive('/about')}
-            data-aos="fade-down" 
-            data-aos-delay="300"
           >
             About Us
           </Link>
@@ -226,8 +206,6 @@ const Navbar = () => {
             <div 
               className="profile-menu" 
               ref={dropdownRef}
-              data-aos="fade-down" 
-              data-aos-delay="350"
             >
               <button 
                 className="profile-button"
@@ -263,7 +241,7 @@ const Navbar = () => {
               </button>
               
               {isDropdownOpen && (
-                <div className="dropdown-menu" data-aos="fade-up" data-aos-anchor-placement="top-bottom">
+                <div className="dropdown-menu">
                   <Link 
                     to="/profile" 
                     className="dropdown-item"
@@ -322,8 +300,6 @@ const Navbar = () => {
             <Link 
               to="/login" 
               className={`login-button ${isActive('/login')}`}
-              data-aos="fade-down" 
-              data-aos-delay="350"
             >
               Login
             </Link>

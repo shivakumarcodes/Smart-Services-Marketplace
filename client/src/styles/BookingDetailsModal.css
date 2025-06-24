@@ -217,7 +217,7 @@
 }
 
 /* Modal Content */
-.modal-content {
+.amodal-content {
   padding: 0;
   min-width: 100%;
   max-height: calc(90vh - 120px);

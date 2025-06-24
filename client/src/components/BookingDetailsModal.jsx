@@ -86,7 +86,7 @@ const BookingDetailsModal = ({
           </button>
         </div>
         
-        <div className="modal-content">
+        <div className="amodal-content">
           <div className="booking-info">
             <h3 style={{fontSize: '2rem', fontWeight: 'bold'}}>{booking.serviceTitle || 'Service Title Not Available'}</h3>
             <div className="booking-details-grid">
@@ -112,12 +112,9 @@ const BookingDetailsModal = ({
               <div className="booking-address">
                 <h4 style={{display: 'flex',justifyContent: 'center'}}>Service Address:</h4>
                 <div className="address-details">
-                  {booking.address.street && <p>{booking.address.street}</p>}
-                  {(booking.address || booking.address.state || booking.address.zipCode) && (
+                  {(booking.address) && (
                     <p>
-                      {[booking.address, booking.address.state, booking.address.zipCode]
-                        .filter(Boolean)
-                        .join(', ')}
+                      {booking.address}
                     </p>
                   )}
                 </div>

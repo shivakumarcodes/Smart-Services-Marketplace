@@ -331,7 +331,7 @@ form {
 }
 
 .confirm-btn:hover:not(:disabled) {
-  background-color: #2563eb;
+  background-color: rgb(241, 247, 241);
   transform: translateY(-1px);
   box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
 }
