@@ -410,7 +410,6 @@ const Services = () => {
                 <article 
                   key={service.service_id} 
                   className="service-card"
-                  onClick={() => handleServiceClick(service.service_id)}
                   tabIndex="0"
                   role="button"
                   aria-label={`Service: ${service.title} by ${service.provider_name}`}
@@ -430,15 +429,18 @@ const Services = () => {
                   </div>
                   <div className="service-details">
                     <h2>{service.title.charAt(0).toUpperCase() + service.title.slice(1)}</h2>
-                    <p className="service-provider">by {service.provider_name}</p>
+                    <p style={{marginTop: '0'}} className="service-location">
+                    <span className="service-provider">by {service.provider_name} </span>
+                      ({service.location ?? getRandomLocation()})
+                    </p>
                     <div className="service-rating">
                       {renderStars(service)}
                     </div>
                     <p className="service-price"><span>only </span>{formatPrice(service.base_price)}/-</p>
-                    <p className="service-location">
-                      <i className="fas fa-map-marker-alt" aria-hidden="true"></i>
-                      {service.location ?? getRandomLocation()}
-                    </p>
+                    
+                    <div style={{display: 'flex', flexDirection: 'row', justifyContent: 'center'}}>
+                      <a className='connect-button' style={{fontSize: '0.8rem'}} onClick={() => handleServiceClick(service.service_id)}>View Service</a>
+                    </div>
                   </div>
                 </article>
               ))
