@@ -3,8 +3,7 @@ import { FiCheck, FiXCircle } from 'react-icons/fi';
 
 const ProvidersContent = ({ pendingProviders, approveProvider, rejectProvider }) => {
   return (
-    <div className="content-section">
-      <h2 style={{backgroundColor: '#f0f0f0',padding: '12px 16px'}}>Pending Provider Approvals ({pendingProviders.length})</h2>
+    <div style={{marginTop: '1rem'}} className="content-section">
       {pendingProviders.length > 0 ? (
         <div className="table-container">
           <table>

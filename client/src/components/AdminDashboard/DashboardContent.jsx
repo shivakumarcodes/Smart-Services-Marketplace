@@ -3,8 +3,7 @@ import { FiUsers, FiUserCheck, FiCheck, FiXCircle } from 'react-icons/fi';
 
 const DashboardContent = ({ stats, pendingProviders, setActiveTab, approveProvider, rejectProvider }) => {
   return (
-    <div className="content-section">
-      <h2 style={{backgroundColor: '#f0f0f0',padding: '12px 16px'}}>Dashboard Overview</h2>
+    <div style={{marginTop: '1rem'}} className="content-section">
       <div className="stats-cards">
         <div className="stat-card">
           <div className="stat-icon users">

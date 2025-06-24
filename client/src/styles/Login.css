@@ -125,7 +125,6 @@
   background-color: #1abc9c !important;
   color: white;
   border: none;
-  border-radius: var(--radius-md);
   padding: 1rem;
   font-size: 1rem;
   font-weight: 600;
@@ -222,11 +221,21 @@
   background: white;
   border-radius: 8px;
   padding: 0;
-  min-width: 300px;
-  max-width: 400px;
+  min-width: 480px !important;
+  max-width: 480px !important;
   width: 90%;
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
   position: relative;
+}
+
+@media (max-width: 700px) {
+  .modal-content {
+    min-width: 280px !important;
+    max-width: 380px !important;
+  }
+  .modal-header h3 {
+    margin-left: 0 !important;
+  }
 }
 
 .modal-header {
@@ -239,9 +248,10 @@
 
 .modal-header h3 {
   margin: 0;
+  margin-left: 5rem;
   font-size: 18px;
-  font-weight: 600;
-  color: #333;
+  font-weight: 700;
+  color: #fff;
 }
 
 .modal-close {

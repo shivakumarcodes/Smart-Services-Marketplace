@@ -44,7 +44,7 @@ export default function Footer() {
         {/* Contact Info */}
         <div className="footer-section">
           <h3 className="footer-heading">Contact Us</h3>
-          <ul className="footer-contact">
+          <ul className="footer-links">
             <li>
               📞 <a href="tel:+919618244562" className="footer-link">+91 9618244562</a>
             </li>

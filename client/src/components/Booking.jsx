@@ -382,7 +382,7 @@ const Booking = ({
                   type="text"
                   value={address || ''}
                   onChange={(e) => setAddress(e.target.value)}
-                  placeholder="Where should the service be performed?"
+                  placeholder="e.g. Balanagar,Hyderabad (Where should the service be performed?)"
                   required
                 />
                 <small>Provide the complete address where you need this service</small>

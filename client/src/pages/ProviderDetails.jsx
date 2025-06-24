@@ -84,7 +84,7 @@ const ProviderDetails = () => {
         <div className="provider-info">
           <h1>{provider.provider_name}</h1>
           <p className="service-type">{provider.service_type}</p>
-          <div className="rating">
+          <div style={{marginBottom: '0.5rem'}} className="rating">
             <span className="stars">★★★★★</span>
             <span className="rating-value">{formatRating(provider.rating)}</span>
           </div>

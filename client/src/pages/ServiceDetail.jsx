@@ -335,7 +335,7 @@ const ServiceDetail = () => {
               e.target.src = 'https://isobarscience.com/wp-content/uploads/2020/09/default-profile-picture1.jpg';
             }}
           />
-          <div className="provider-info">
+          <div style={{minWidth: '500px'}} className="provider-info">
             <h3 data-aos="fade-right" data-aos-delay="100">{service.provider_name}</h3>
             <p className="provider-specialty" data-aos="fade-right" data-aos-delay="150">{service.service_type} Specialist</p>
             <p className="provider-experience" data-aos="fade-right" data-aos-delay="200">{service.experience_years} years experience</p>

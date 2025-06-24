@@ -67,6 +67,11 @@
   .footer-links a:hover {
     color: #3498db;
   }
+
+  .footer-links li a:hover {
+    color: #3498db;
+    text-decoration: none;
+  }
   
   .footer-contact {
     list-style: none;

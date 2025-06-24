@@ -2,8 +2,7 @@ import React from 'react';
 
 const UsersContent = ({ users, visibleUsers, showMoreUsers }) => {
   return (
-    <div className="content-section">
-      <h2 style={{backgroundColor: '#f0f0f0',padding: '12px 16px'}}>User Management</h2>
+    <div style={{marginTop: '1rem'}} className="content-section">
       <div className="table-container">
         <table>
           <thead>

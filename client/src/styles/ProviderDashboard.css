@@ -7,6 +7,16 @@
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   color: #333;
   width: 80%;
+  /* display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center; */
+}
+
+@media (min-width: 1100px){
+  .provider-dashboard{
+    min-width: 1100px;
+  }
 }
 
 /* Dashboard Header */
@@ -58,9 +68,13 @@
 
 /* Provider Info Card */
 .provider-info-card {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  align-items: center;
   background: #fff;
   border-radius: 8px;
-  box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+  /* box-shadow: 0 2px 10px rgba(0,0,0,0.05); */
   padding: 2rem;
   margin-bottom: 2rem;
 }
@@ -236,7 +250,7 @@
   border: none;
   border-radius: 4px;
   font-weight: 500;
-  font-size: 0.9rem;
+  font-size: 0.5rem;
   cursor: pointer;
   transition: all 0.2s;
 }

@@ -162,7 +162,8 @@ const Login = () => {
                     
           <button 
             type="submit"
-            className="login-button"
+            className="guest-login-button"
+            style={{backgroundColor: '#4361ee'}}
             disabled={isSubmitting}
             data-aos="fade-in"
             data-aos-delay="300"
@@ -180,9 +181,14 @@ const Login = () => {
           >
             Guest Login
           </button>
-        </form>
-
-        {/* Guest Login Modal */}
+        </form>                
+        <div 
+          className="register-link"
+        >
+          Don't have an account? <Link to="/register">Sign up</Link>
+        </div>
+      </div>
+      {/* Guest Login Modal */}
         {showGuestModal && (
           <div 
             className="modal-overlay" 
@@ -236,13 +242,6 @@ const Login = () => {
             </div>
           </div>
         )}
-                
-        <div 
-          className="register-link"
-        >
-          Don't have an account? <Link to="/register">Sign up</Link>
-        </div>
-      </div>
     </div>
   );
 };

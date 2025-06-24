@@ -333,7 +333,8 @@ const ProfilePage = () => {
 
   return (
     <div className="profile-container">
-      <div style={{backgroundColor: 'rgba(67, 97, 238, 0.7)', borderRadius: '10px'}} className="profile-header" data-aos="fade-down">
+      <div className='div-head'>
+        <div className="profile-header" data-aos="fade-down">
         {profile.profilePicture && !profileImageError ? (
           <img
             src={getProfilePictureUrl(profile.profilePicture)}
@@ -355,9 +356,11 @@ const ProfilePage = () => {
           {profile.isVerified && <span className="verified-badge">Verified</span>}
         </div>
       </div>
+      </div>
 
-      {profile.role === 'provider' && profile.provider && (
-        <div style={{minWidth: '100%'}} className="provider-info" data-aos="fade-up" data-aos-delay="300">
+      <div className='div-head'>
+        {profile.role === 'provider' && profile.provider && (
+        <div className="provider-info" data-aos="fade-up" data-aos-delay="300">
           <h2>Provider Information</h2>
           <div className="provider-details">
             <p data-aos="fade-right" data-aos-delay="350"><strong>Service Type:</strong> {profile.provider.service_type || 'Not specified'}</p>
@@ -405,12 +408,13 @@ const ProfilePage = () => {
           )}
         </div>
       )}
+      </div>
 
       {profile.bookings && profile.bookings.length > 0 && (
-          <div style={{width: '70vw',padding: '1.5rem'}} className="bookings-grid">
+          <div style={{padding: '1.5rem'}} className="bookings-grid">
             <h1 style={{textShadow: '2px 2px 8px rgba(0, 0, 0, 0.3)'}} className='popular-categories-title'>My Bookings</h1>
             <div className="bookings-list">
-              {profile.bookings.slice(0, showAllBookings ? 8 : 4).map((booking, index) => (
+              {profile.bookings.slice(0, showAllBookings ? 9 : 6).map((booking, index) => (
                 <div 
                   key={booking.booking_id} 
                   className="booking-card"

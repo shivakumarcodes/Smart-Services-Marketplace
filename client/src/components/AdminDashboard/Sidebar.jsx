@@ -10,7 +10,7 @@ const Sidebar = ({ activeTab, setActiveTab, sidebarOpen, setSidebarOpen, stats, 
   return (
     <div className={`sidebar ${sidebarOpen ? 'open' : ''}`}>
       <div className="sidebar-header">
-        <h2>SmartServices</h2>
+        <h2>Smart Services</h2>
       </div>
       <nav className="sidebar-nav">
         <ul>

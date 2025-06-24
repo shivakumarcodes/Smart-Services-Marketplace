@@ -92,7 +92,7 @@ const FeaturedServiceCard = ({
         </div>
       </div>
 
-      <div className="provider-info">
+      <div className="aprovider-info">
         <h3 className="provider-name">{providerName}</h3>
         <p className="provider-category">{serviceType}</p>
         {renderStars(rating)}
