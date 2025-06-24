@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
 import { BASE_URL } from '../api/axiosInstance';
@@ -63,6 +63,7 @@ const Services = () => {
   const [totalItems, setTotalItems] = useState(0);
   
   const navigate = useNavigate();
+  const location = useLocation();
   const debounceRef = useRef(null);
 
   useEffect(() => {
@@ -90,17 +91,37 @@ const Services = () => {
     fetchCategories();
   }, []);
   
+  // Initialize filters from URL parameters
   useEffect(() => {
-    const searchParams = new URLSearchParams(window.location.search);
+    const searchParams = new URLSearchParams(location.search);
     const initialSearch = searchParams.get('search') || '';
     const initialLocation = searchParams.get('location') || '';
+    const initialCategory = searchParams.get('category') || '';
+    const initialPriceRange = searchParams.get('priceRange') || '';
 
     setFilters(prev => ({
       ...prev,
       search: initialSearch,
-      location: initialLocation
+      location: initialLocation,
+      category: initialCategory,
+      priceRange: initialPriceRange
     }));
-  }, []);
+  }, [location.search]);
+
+  // Update URL when filters change
+  const updateURL = (newFilters) => {
+    const searchParams = new URLSearchParams();
+    
+    // Only add non-empty filter values to URL
+    if (newFilters.search) searchParams.set('search', newFilters.search);
+    if (newFilters.location) searchParams.set('location', newFilters.location);
+    if (newFilters.category) searchParams.set('category', newFilters.category);
+    if (newFilters.priceRange) searchParams.set('priceRange', newFilters.priceRange);
+    
+    // Update URL without triggering a page reload
+    const newURL = searchParams.toString() ? `?${searchParams.toString()}` : '';
+    navigate(`/services${newURL}`, { replace: true });
+  };
 
   const fetchServices = async () => {
     try {
@@ -160,6 +181,7 @@ const Services = () => {
     debounceRef.current = setTimeout(() => {
       setCurrentPage(1);
       fetchServices();
+      updateURL(filters); // Update URL when filters change
     }, 500);
 
     return () => clearTimeout(debounceRef.current);

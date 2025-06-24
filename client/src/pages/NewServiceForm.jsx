@@ -4,19 +4,6 @@ import axios from 'axios';
 import '../styles/NewServiceForm.css';
 import { BASE_URL } from '../api/axiosInstance';
 
-const LOCATION_OPTIONS = [
-  'Hyderabad',
-  'Siddipet',
-  'Karimnagar',
-  'Warangal',
-  'Khammam',
-  'Nizamabad',
-  'Medak',
-  'Adilabad',
-  'Nalgonda',
-  'Mahbubnagar'
-];
-
 const NewServiceForm = () => {
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
@@ -33,8 +20,6 @@ const NewServiceForm = () => {
   const [error, setError] = useState(null);
   const [success, setSuccess] = useState(false);
   const [locationInput, setLocationInput] = useState('');
-  const [locationSuggestions, setLocationSuggestions] = useState([]);
-  const [showSuggestions, setShowSuggestions] = useState(false);
 
   const [categories, setCategories] = useState([]);
 
@@ -278,18 +263,6 @@ const NewServiceForm = () => {
               required
               onFocus={() => setShowSuggestions(true)}
             />
-            {showSuggestions && locationSuggestions.length > 0 && (
-              <ul className="location-suggestions">
-                {locationSuggestions.map((location, index) => (
-                  <li 
-                    key={index}
-                    onClick={() => selectLocation(location)}
-                  >
-                    {location}
-                  </li>
-                ))}
-              </ul>
-            )}
           </div>
         </div>
 
