@@ -87,8 +87,8 @@
 }
 
 .service-thumbnail {
-  width: 100px;
-  height: 80px;
+  width: 20rem;
+  height: 12rem;
   object-fit: cover;
   border-radius: 8px;
   flex-shrink: 0;
@@ -99,7 +99,6 @@
 }
 
 .service-info h4 {
-  margin: 0 0 8px 0;
   font-size: 18px;
   font-weight: 600;
   color: #1f2937;
@@ -126,8 +125,9 @@
   font-size: 16px;
 }
 
-.service-duration {
+.aservice-duration {
   color: #6b7280;
+  text-align: start;
 }
 
 /* Success Message */
@@ -323,6 +323,7 @@ form {
 .cancel-btn:hover {
   background-color: #e5e7eb;
   border-color: #9ca3af;
+  color: #059669;
 }
 
 .confirm-btn {
@@ -331,7 +332,6 @@ form {
 }
 
 .confirm-btn:hover:not(:disabled) {
-  background-color: rgb(241, 247, 241);
   transform: translateY(-1px);
   box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
 }

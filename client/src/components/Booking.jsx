@@ -22,6 +22,8 @@ const Booking = ({
   const [paymentMethod, setPaymentMethod] = useState('online');
   const [isProcessingPayment, setIsProcessingPayment] = useState(false);
 
+  console.log(service);
+
   // Function to calculate minimum date/time (now + 1 hour)
   const getMinDateTime = () => {
     const now = new Date();
@@ -341,7 +343,7 @@ const Booking = ({
           <>
             <div className="service-summary">
               <img
-                src="https://placehold.co/400x300.png?text=Service+Image&font=roboto" 
+                src={service.images[0].image_url || "https://placehold.co/400x300.png?text=Service+Image&font=roboto"}
                 alt={service?.title || 'Service'} 
                 className="service-thumbnail"
                 onError={(e) => {
@@ -354,7 +356,7 @@ const Booking = ({
                 <div className="service-details">
                   <p className="provider-name">By {service?.provider_name || 'Provider'}</p>
                   <p className="service-price">₹{service?.base_price || 0}</p>
-                  <p className="service-duration">{service?.duration_minutes || 0} mins</p>
+                  <p className="aservice-duration">{service?.duration_minutes || 0} mins</p>
                 </div>
               </div>
             </div>
