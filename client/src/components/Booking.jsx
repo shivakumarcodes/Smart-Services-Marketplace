@@ -22,7 +22,7 @@ const Booking = ({
   const [paymentMethod, setPaymentMethod] = useState('online');
   const [isProcessingPayment, setIsProcessingPayment] = useState(false);
 
-  console.log(service);
+  // console.log(service);
 
   // Function to calculate minimum date/time (now + 1 hour)
   const getMinDateTime = () => {

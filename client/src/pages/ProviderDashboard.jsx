@@ -332,7 +332,7 @@ const ProviderDashboard = () => {
               }}
             />
             <div className="profile-details">
-              <h3>{dashboardData.provider.name}</h3>
+              <h3>{dashboardData.provider.name.charAt(0).toUpperCase() + dashboardData.provider.name.slice(1)}</h3>
               <p><strong>Email:</strong> {dashboardData.provider.email}</p>
               <p><strong>Phone:</strong> {dashboardData.provider.phone || 'Not provided'}</p>
               <p><strong>Service Type:</strong> {dashboardData.provider.serviceType}</p>
@@ -428,7 +428,7 @@ const ProviderDashboard = () => {
           <div className="services-grid">
             {dashboardData.services.length > 0 ? (
               dashboardData.services.map(service => (
-                <div style={{height: '330px'}} key={service.id} className="service-card">
+                <div style={{height: '330px'}} key={service.id} onClick={()=>navigate(`/services/${service.id}`)} className="service-card">
                   <div className="service-image-container">
                     <img 
                       src={getServiceImageUrl(service.image)} 

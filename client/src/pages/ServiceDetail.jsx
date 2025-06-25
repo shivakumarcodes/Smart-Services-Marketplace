@@ -255,7 +255,7 @@ const ServiceDetail = () => {
     <div className="service-detail-container">
       {/* Service Header */}
       <div className="service-header" data-aos="fade-down">
-        <h1>{service.title} Service</h1>
+        <h1>{service.title}</h1>
         <div className="service-meta">
           <span className="price">₹{service.base_price}</span>
           <span className="duration">{service.duration_minutes} mins</span>

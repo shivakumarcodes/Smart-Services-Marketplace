@@ -253,8 +253,8 @@ const ProfilePage = () => {
   if (isEditing) {
     return (
       <div className="profile-container">
-        <h2 data-aos="fade-down">Edit Profile</h2>
         <form onSubmit={handleSubmit} className="edit-profile-form" data-aos="fade-up">
+          <h2 style={{marginBottom: '1.5rem'}} data-aos="fade-down">EDIT PROFILE</h2>
           <div className="form-group" data-aos="fade-right" data-aos-delay="100">
             <label>Name</label>
             <input 
@@ -382,6 +382,7 @@ const ProfilePage = () => {
                 {profile.provider.services.map((service, index) => (
                   <div 
                     key={service.service_id} 
+                    onClick={()=> navigate(`/services/${service.service_id}`)}
                     className="service-card"
                     data-aos="fade-up"
                     data-aos-delay={100 + (index * 100)}
