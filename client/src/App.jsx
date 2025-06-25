@@ -17,6 +17,7 @@ import CategorySeparatePage from './pages/CategorySeparatePage';
 import ProviderDetails from './pages/ProviderDetails';
 import MyBookings from './pages/MyBookings';
 import NewServiceForm from './pages/NewServiceForm';
+import NotFound from './components/NotFound';
 
 function App() {
   return (
@@ -43,7 +44,7 @@ function App() {
           <Route path="/provider/services/new" element={<NewServiceForm />} />
           
           {/* Optional 404 route */}
-          <Route path="*" element={<div>404 Not Found</div>} />
+          <Route path="*" element={<NotFound />} />
         </Routes>
       </main>
 
