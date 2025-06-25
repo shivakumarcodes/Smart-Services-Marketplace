@@ -396,12 +396,12 @@ app.get('/api/services', async (req, res) => {
       search,
       sortBy = 'created_at', 
       sortOrder = 'DESC',
-      page = 1,
-      limit = 10
+      // page = 1,
+      // limit = 10
     } = req.query;
     
     // Calculate offset for pagination
-    const offset = (page - 1) * limit;
+    // const offset = (page - 1) * limit;
     
     // Build WHERE clause based on filters
     const conditions = ['s.is_active = TRUE', 'p.is_approved = TRUE'];
@@ -413,7 +413,6 @@ app.get('/api/services', async (req, res) => {
     }
     
     if (location) {
-      // Search in both service location and provider location
       conditions.push('(s.location = ? OR s.location LIKE ? OR u.location = ? OR u.location LIKE ?)');
       params.push(location, `%${location}%`, location, `%${location}%`);
     }
@@ -470,7 +469,6 @@ app.get('/api/services', async (req, res) => {
       JOIN users u ON p.user_id = u.user_id
       WHERE ${conditions.join(' AND ')}
       ORDER BY ${sortColumn === 'rating' ? 'p.rating' : `s.${sortColumn}`} ${order}
-      LIMIT ? OFFSET ?
     `;
     
     // Count query for pagination
@@ -484,12 +482,11 @@ app.get('/api/services', async (req, res) => {
     
     // Execute both queries in parallel
     const [services, [totalResult]] = await Promise.all([
-      pool.query(servicesQuery, [...params, parseInt(limit), parseInt(offset)]),
+      pool.query(servicesQuery, [...params]),
       pool.query(countQuery, params)
     ]);
     
     const totalServices = totalResult.total;
-    const totalPages = Math.ceil(totalServices / limit);
     
     res.status(200).json({
       services: services[0],
