@@ -499,67 +499,130 @@
   border-top-color: #16a085;
   border-radius: 50%;
   animation: spin 1s linear infinite;
+  margin: 2rem auto;
 }
 
 /* Skeleton Loader Styles - Enhanced */
 .service-card.skeleton {
   cursor: default;
   pointer-events: none;
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  position: relative;
 }
 
-.shimmer {
-  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
-  background-size: 200% 100%;
+.service-card.skeleton::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(90deg, 
+    rgba(255, 255, 255, 0) 0%, 
+    rgba(255, 255, 255, 0.8) 50%, 
+    rgba(255, 255, 255, 0) 100%);
   animation: shimmer 1.5s infinite;
 }
 
 .skeleton-image {
   height: 200px;
-  border-radius: 8px;
+  border-radius: 8px 8px 0 0;
+  background-color: #f0f0f0;
+  width: 100%;
+}
+
+.skeleton-details {
+  padding: 1rem;
 }
 
 .skeleton-text {
   height: 1em;
   margin: 0.5em 0;
   border-radius: 4px;
+  background-color: #f0f0f0;
+  width: 100%;
 }
 
 .skeleton-title {
   width: 80%;
   height: 1.5em;
+  margin-bottom: 1rem;
 }
 
 .skeleton-provider {
   width: 60%;
+  height: 0.9em;
 }
 
 .skeleton-price {
   width: 40%;
+  height: 1.2em;
+  margin-top: 1rem;
 }
 
 .skeleton-location {
   width: 50%;
+  height: 0.8em;
 }
 
 .skeleton-rating {
   display: flex;
-  gap: 2px;
-  margin: 0.5em 0;
+  gap: 4px;
+  margin: 0.75em 0;
 }
 
 .skeleton-star {
   color: #e0e0e0;
+  font-size: 1.2em;
+}
+
+/* Button skeleton */
+.skeleton-button {
+  height: 2rem;
+  width: 80%;
+  margin: 1rem auto 0;
+  border-radius: 4px;
+  background-color: #f0f0f0;
 }
 
 @keyframes shimmer {
   0% {
-    background-position: 200% 0;
+    transform: translateX(-100%);
   }
   100% {
-    background-position: -200% 0;
+    transform: translateX(100%);
   }
 }
 
+/* No results styling */
+.no-results {
+  text-align: center;
+  grid-column: 1 / -1;
+  padding: 3rem;
+  font-size: 1.2rem;
+  color: #666;
+  background: #f9f9f9;
+  border-radius: 8px;
+  margin: 2rem 0;
+}
+
+/* Responsive adjustments for skeleton */
+@media (max-width: 768px) {
+  .skeleton-image {
+    height: 150px;
+  }
+  
+  .skeleton-title {
+    height: 1.2em;
+  }
+  
+  .skeleton-text {
+    height: 0.8em;
+  }
+}
 /* Results summary styling */
 .results-summary {
   text-align: center;
@@ -676,7 +739,7 @@
   position: relative;
   padding: 0.2rem;
   height: 2.5rem;
-  z-index: 10;
+  /* z-index: 10; */
   transition: all 200ms linear;
   transform: scale(1);
   display: flex; /* Show by default unless you want to control it with media queries */
@@ -689,7 +752,7 @@
   font-size: 12px;
   text-align: left;
   font-weight: 600;
-  line-height: 18.15px;
+  line-height: 1.1rem;
   white-space: nowrap;
   width: fit-content;
   margin-left: auto;
