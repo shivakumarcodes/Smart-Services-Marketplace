@@ -58,6 +58,8 @@ const FeaturedServiceCard = ({
         <div className="provider-info">
           <div className="provider-name shimmer"></div>
           <div className="provider-category shimmer"></div>
+          <div className="provider-category shimmer"></div>
+          <div className="provider-category shimmer"></div>
           <div className="provider-rating shimmer"></div>
         </div>
       </div>

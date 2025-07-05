@@ -1527,14 +1527,6 @@ app.post('/api/payments/create-order', authenticate, async (req, res) => {
     const { amount, currency = 'INR', bookingData } = req.body;
     const user_id = req.user?.id;
 
-    // Debug: Log incoming request
-    // console.log('Incoming request:', {
-    //   amount,
-    //   currency,
-    //   bookingData,
-    //   user_id
-    // });
-
     // Validate all parameters
     if (!amount || isNaN(amount) || amount <= 0) {
       console.error('Invalid amount:', amount);
