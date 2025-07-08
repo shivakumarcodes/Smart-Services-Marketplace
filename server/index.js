@@ -16,7 +16,12 @@ const { CloudinaryStorage } = require('multer-storage-cloudinary');
 const backend_url = "https://shiva-smart-services.onrender.com/";
 
 const app = express();
-app.use(cors({ origin: '*' }));
+app.use(cors({
+  origin: 'https://smart-services-marketplace.vercel.app',
+  // origin: 'http://localhost:5173/',
+  credentials: true, // Required if using cookies/auth headers
+  methods: ['GET', 'POST', 'PUT', 'DELETE']
+}));
 app.use(express.json());
 
 // Configure Cloudinary
