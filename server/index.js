@@ -1886,6 +1886,9 @@ app.post('/api/payments/refund', authenticate, async (req, res) => {
   }
 });
 
+app.get('/api/status',(req,res)=>{
+    res.status(200).json({ message: 'Server Running..' });
+})
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
