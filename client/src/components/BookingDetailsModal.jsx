@@ -88,7 +88,7 @@ const BookingDetailsModal = ({
         
         <div className="amodal-content">
           <div className="booking-info">
-            <h3 style={{fontSize: '2rem', fontWeight: 'bold'}}>{booking.serviceTitle || 'Service Title Not Available'}</h3>
+            <h3 style={{fontSize: '2rem', fontWeight: 'bold'}}>{booking.serviceTitle ? booking.serviceTitle.charAt(0).toUpperCase() + booking.serviceTitle.slice(1) : 'Service Title Not Available'}</h3>
             <div className="booking-details-grid">
               <p><strong>Booking ID:</strong> {booking.id || 'N/A'}</p>
               <p><strong>Customer:</strong> {booking.customerName || 'N/A'}</p>
@@ -122,6 +122,8 @@ const BookingDetailsModal = ({
                     >
                       {booking.address}
                     </a>
+                    <br></br>
+                    <span>+91 9618244562</span>
                   </p>
                 )}
               </div>
