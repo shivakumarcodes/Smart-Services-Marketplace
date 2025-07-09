@@ -326,7 +326,7 @@ const Services = () => {
     <div className="services-page">
       <div className="services-browser-container">
         <div className="doodle-bg">
-          {[...Array(20)].map((_, i) => (
+          {[...Array(30)].map((_, i) => (
             <div 
               key={i} 
               className="doodle-element"

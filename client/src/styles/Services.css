@@ -32,6 +32,18 @@
   border: 2px solid rgba(19, 71, 53, 0.649);
 }
 
+@keyframes floatAndRotate {
+  0% {
+    transform: translateY(0) rotate(0deg) scale(1);
+  }
+  50% {
+    transform: translateY(-20px) rotate(180deg) scale(1.1);
+  }
+  100% {
+    transform: translateY(0) rotate(360deg) scale(1);
+  }
+}
+
 .doodle-bg {
   position: absolute;
   top: 0;
@@ -40,6 +52,7 @@
   height: 100%;
   z-index: 0;
   pointer-events: none;
+  overflow: hidden;
 }
 
 .doodle-element {
@@ -49,7 +62,36 @@
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%236974ff'%3E%3Cpath d='M12,2C6.48,2,2,6.48,2,12s4.48,10,10,10s10-4.48,10-10S17.52,2,12,2z M12,20c-4.42,0-8-3.58-8-8s3.58-8,8-8s8,3.58,8,8 S16.42,20,12,20z'/%3E%3C/svg%3E");
   background-repeat: no-repeat;
   background-size: contain;
+  animation: floatAndRotate 6s ease-in-out infinite;
+  animation-delay: calc(var(--i) * -0.3s);
 }
+
+
+/* .doodle-bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  pointer-events: none;
+}
+
+@keyframes float {
+  0% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+  100% { transform: translateY(0); }
+}
+
+.doodle-element {
+  position: absolute;
+  width: 40px;
+  height: 40px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%236974ff'%3E%3Cpath d='M12,2C6.48,2,2,6.48,2,12s4.48,10,10,10s10-4.48,10-10S17.52,2,12,2z M12,20c-4.42,0-8-3.58-8-8s3.58-8,8-8s8,3.58,8,8 S16.42,20,12,20z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-size: contain;
+  animation: float 4s ease-in-out infinite;
+} */
 
 .services-content {
   position: relative;
