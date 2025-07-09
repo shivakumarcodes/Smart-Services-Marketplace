@@ -21,8 +21,9 @@ const Booking = ({
 }) => {
   const [paymentMethod, setPaymentMethod] = useState('online');
   const [isProcessingPayment, setIsProcessingPayment] = useState(false);
-
-  // console.log(service);
+  const [isCheckingAvailability, setIsCheckingAvailability] = useState(false);
+  const [availabilityStatus, setAvailabilityStatus] = useState(null);
+  const [conflictDetails, setConflictDetails] = useState(null);
 
   // Function to calculate minimum date/time (now + 1 hour)
   const getMinDateTime = () => {
@@ -30,6 +31,52 @@ const Booking = ({
     now.setHours(now.getHours() + 1);
     return now.toISOString().slice(0, 16);
   };
+
+  // Check availability when booking date changes
+  useEffect(() => {
+    const checkAvailability = async () => {
+      if (!bookingDate || !service?.service_id || !service?.provider_id) return;
+
+      setIsCheckingAvailability(true);
+      setAvailabilityStatus(null);
+      setConflictDetails(null);
+
+      try {
+        const token = localStorage.getItem('token');
+        if (!token || !isTokenValid(token)) return;
+
+        const response = await fetch(
+          `${BASE_URL}/api/bookings/check-availability?providerId=${service.provider_id}&serviceId=${service.service_id}&bookingDate=${bookingDate}`,
+          {
+            headers: {
+              'Authorization': `Bearer ${token}`
+            }
+          }
+        );
+
+        if (response.ok) {
+          const data = await response.json();
+          setAvailabilityStatus(data.available);
+          
+          if (!data.available) {
+            setConflictDetails({
+              type: 'provider_conflict',
+              message: 'This time slot is not available',
+              conflicts: data.conflicts
+            });
+          }
+        }
+      } catch (error) {
+        console.error('Error checking availability:', error);
+      } finally {
+        setIsCheckingAvailability(false);
+      }
+    };
+
+    // Debounce the availability check
+    const timeoutId = setTimeout(checkAvailability, 500);
+    return () => clearTimeout(timeoutId);
+  }, [bookingDate, service?.service_id, service?.provider_id]);
 
   // Load Razorpay script
   const loadRazorpayScript = () => {
@@ -47,14 +94,11 @@ const Booking = ({
     if (!token) return false;
     
     try {
-      // Split JWT token into parts
       const parts = token.split('.');
       if (parts.length !== 3) return false;
       
-      // Decode payload (middle part)
       const payload = JSON.parse(atob(parts[1]));
       
-      // Check if token is expired (exp is in seconds, Date.now() is in milliseconds)
       if (payload.exp && payload.exp * 1000 < Date.now()) {
         return false;
       }
@@ -100,7 +144,6 @@ const Booking = ({
     try {
       const token = localStorage.getItem('token');
       
-      // Verify token exists and is valid
       if (!token) {
         throw new Error('No authentication token found. Please login again.');
       }
@@ -131,7 +174,6 @@ const Booking = ({
       });
 
       if (response.status === 401) {
-        // Token likely expired or invalid
         localStorage.removeItem('token');
         throw new Error('Session expired. Please login again.');
       }
@@ -176,6 +218,11 @@ const Booking = ({
         throw new Error('Session expired. Please login again.');
       }
 
+      if (response.status === 409) {
+        const data = await response.json();
+        throw new Error(data.message || 'Booking conflict detected');
+      }
+
       const data = await response.json();
       
       if (!response.ok) {
@@ -210,6 +257,11 @@ const Booking = ({
         throw new Error('Please provide a service address');
       }
 
+      // Check if the selected time is available
+      if (availabilityStatus === false) {
+        throw new Error('The selected time slot is not available. Please choose a different time.');
+      }
+
       // Check token validity before proceeding
       const token = localStorage.getItem('token');
       if (!token || !isTokenValid(token)) {
@@ -226,8 +278,6 @@ const Booking = ({
         address: address.trim(),
         totalAmount: parseFloat(service.base_price)
       };
-
-      // console.log('Submitting booking with data:', bookingData);
 
       if (paymentMethod === 'online') {
         setIsProcessingPayment(true);
@@ -248,7 +298,17 @@ const Booking = ({
       }
     } catch (error) {
       console.error('Booking error:', error);
-      setBookingError(error.message || 'Something went wrong. Please try again.');
+      
+      // Handle specific conflict errors
+      if (error.message.includes('already have a booking')) {
+        setBookingError('You already have a booking scheduled during this time. Please choose a different time slot.');
+      } else if (error.message.includes('not available during')) {
+        setBookingError('This provider is not available during the selected time. Please choose a different time or provider.');
+      } else if (error.message.includes('already booked this service')) {
+        setBookingError('You have already booked this service for today. Please choose a different date.');
+      } else {
+        setBookingError(error.message || 'Something went wrong. Please try again.');
+      }
     } finally {
       setIsBooking(false);
       setIsProcessingPayment(false);
@@ -265,7 +325,7 @@ const Booking = ({
 
     return new Promise((resolve, reject) => {
       const options = {
-        key: 'rzp_test_LRcf9QsPNG7mdZ', // Add this to your .env file
+        key: 'rzp_test_LRcf9QsPNG7mdZ',
         amount: orderData.amount,
         currency: orderData.currency,
         name: 'Smart Services',
@@ -273,7 +333,6 @@ const Booking = ({
         order_id: orderData.id,
         handler: async (response) => {
           try {
-            // Verify payment on backend
             const token = localStorage.getItem('token');
             const verifyResponse = await fetch(`${BASE_URL}/api/payments/verify`, {
               method: 'POST',
@@ -300,9 +359,9 @@ const Booking = ({
           }
         },
         prefill: {
-          name: '', // Will be filled from user data
-          email: '', // Will be filled from user data
-          contact: '' // Will be filled from user data
+          name: '',
+          email: '',
+          contact: ''
         },
         theme: {
           color: '#007bff'
@@ -319,7 +378,6 @@ const Booking = ({
     });
   };
 
-  // Add portal root validation
   const portalRoot = document.getElementById('portal-root');
   if (!portalRoot) {
     console.error('Portal root element not found. Make sure you have a div with id="portal-root" in your HTML.');
@@ -329,8 +387,6 @@ const Booking = ({
   return ReactDOM.createPortal(
     <div className="booking-overlay" onClick={() => setShowBookingForm(false)}>
       <div className="booking-modal" onClick={(e) => e.stopPropagation()}>
-        {/* <button className="close-btn" onClick={() => setShowBookingForm(false)}>×</button> */}
-        
         <div className="booking-modal-header">
           <h3>Book This Service</h3>
         </div>
@@ -356,7 +412,7 @@ const Booking = ({
                 <div className="service-details">
                   <p className="provider-name">By {service?.provider_name || 'Provider'}</p>
                   <p className="service-price">₹{service?.base_price || 0}</p>
-                  <p className="aservice-duration">{service?.duration_minutes || 0} mins</p>
+                  <p className="service-duration">{service?.duration_minutes || 0} mins</p>
                 </div>
               </div>
             </div>
@@ -375,6 +431,19 @@ const Booking = ({
                   required
                 />
                 <small>Please select a date and time for your service</small>
+                
+                {/* Availability status */}
+                {bookingDate && (
+                  <div className="availability-status">
+                    {isCheckingAvailability ? (
+                      <span className="checking">🔍 Checking availability...</span>
+                    ) : availabilityStatus === true ? (
+                      <span className="available">✅ Available</span>
+                    ) : availabilityStatus === false ? (
+                      <span className="not-available">❌ Not available - Please choose a different time</span>
+                    ) : null}
+                  </div>
+                )}
               </div>
               
               <div className="form-group">
@@ -402,7 +471,6 @@ const Booking = ({
                 <small>Optional: Provide any specific requirements or details</small>
               </div>
 
-              {/* Payment Method Selection */}
               <div className="form-group">
                 <label>Payment Method*</label>
                 <div className="payment-methods">
@@ -464,7 +532,7 @@ const Booking = ({
                 </button>
                 <button
                   type="submit"
-                  disabled={isBooking || isProcessingPayment}
+                  disabled={isBooking || isProcessingPayment || availabilityStatus === false}
                   className="confirm-btn"
                 >
                   {isProcessingPayment 

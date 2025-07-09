@@ -581,83 +581,269 @@ app.get('/api/services/:id', async (req, res) => {
 });
 
 // Create a new service (providers only)
-app.post('/api/services', authenticate, authorize(['provider']), upload.array('images', 5), async (req, res) => {
+app.post('/api/bookings', authenticate, authorize(['user']), async (req, res) => {
   const connection = await pool.getConnection();
+  
   try {
     await connection.beginTransaction();
     
-    const { title, description, category, basePrice, durationMinutes, location } = req.body;
-
-    // Validate inputs
-    if (!title?.trim() || !description?.trim() || !category?.trim() || basePrice === undefined || !location?.trim()) {
-      return res.status(400).json({ message: 'Title, description, category, base price and location are required' });
+    // Extract data from request body - using camelCase as sent from frontend
+    const { serviceId, providerId, bookingDate, specialRequests, address, totalAmount } = req.body;
+    
+    // Validate required fields
+    if (!serviceId || !bookingDate || !address || !totalAmount) {
+      return res.status(400).json({
+        message: 'Missing required fields: serviceId, bookingDate, address and totalAmount are required'
+      });
     }
 
-    const numericPrice = parseFloat(basePrice);
-    if (isNaN(numericPrice) || numericPrice <= 0) {
-      return res.status(400).json({ message: 'Price must be a positive number' });
+    // Validate providerId is provided
+    if (!providerId) {
+      return res.status(400).json({ message: 'Provider ID is required' });
     }
 
-    // Get provider ID for the authenticated user
-    const [providers] = await connection.query(
-      'SELECT provider_id FROM providers WHERE user_id = ?',
-      [req.user.id]
+    // Validate booking date is in the future
+    const bookingDateTime = new Date(bookingDate);
+    const now = new Date();
+    
+    if (bookingDateTime <= now) {
+      return res.status(400).json({ message: 'Booking date must be in the future' });
+    }
+
+    // Optional: Verify that the service exists and is active
+    const [services] = await connection.query(
+      'SELECT service_id, provider_id, is_active, duration_minutes FROM services WHERE service_id = ?',
+      [serviceId]
     );
-
-    if (providers.length === 0) {
+    
+    if (services.length === 0) {
       await connection.rollback();
-      return res.status(403).json({ message: 'Provider record not found for this user' });
+      return res.status(404).json({ message: 'Service not found' });
     }
 
-    const providerId = providers[0].provider_id;
+    const service = services[0];
+    
+    // Check if service is active
+    if (!service.is_active) {
+      await connection.rollback();
+      return res.status(400).json({ message: 'This service is currently unavailable' });
+    }
 
-    // Generate UUID for service_id
-    const serviceId = uuidv4();
+    // Verify that providerId matches the service's provider_id
+    if (service.provider_id !== providerId) {
+      await connection.rollback();
+      return res.status(400).json({ message: 'Provider ID does not match the service provider' });
+    }
 
-    // Insert service with location
-    await connection.execute(
-      'INSERT INTO services (service_id, provider_id, title, description, category, base_price, duration_minutes, location) VALUES (?, ?, ?, ?, ?, ?, ?, ?)',
-      [serviceId, providerId, title.trim(), description.trim(), category.trim(), numericPrice, durationMinutes || null, location.trim()]
+    // Calculate service end time
+    const serviceDuration = service.duration_minutes || 60; // Default to 1 hour if not specified
+    const serviceEndTime = new Date(bookingDateTime.getTime() + serviceDuration * 60000);
+
+    // Check for booking conflicts
+    // 1. Check if the same user has an overlapping booking
+    const [userConflicts] = await connection.query(
+      `SELECT booking_id, booking_date, service_id 
+       FROM bookings b
+       JOIN services s ON b.service_id = s.service_id
+       WHERE b.user_id = ? 
+       AND b.status IN ('pending', 'confirmed', 'in_progress')
+       AND (
+         (b.booking_date <= ? AND DATE_ADD(b.booking_date, INTERVAL COALESCE(s.duration_minutes, 60) MINUTE) > ?) OR
+         (b.booking_date < ? AND b.booking_date >= ?)
+       )`,
+      [req.user.id, bookingDateTime, bookingDateTime, serviceEndTime, bookingDateTime]
     );
 
-    // Handle image uploads
-    if (req.files && req.files.length > 0) {
-      let isPrimary = true;
-
-      for (const file of req.files) {
-        const imageUrl = file.path;
-
-        await connection.execute(
-          'INSERT INTO service_images (image_id, service_id, image_url, is_primary) VALUES (?, ?, ?, ?)',
-          [uuidv4(), serviceId, imageUrl, isPrimary]
-        );
-
-        isPrimary = false;
-      }
+    if (userConflicts.length > 0) {
+      await connection.rollback();
+      return res.status(409).json({
+        message: 'You already have a booking scheduled during this time period',
+        conflictType: 'user_conflict',
+        conflictingBooking: userConflicts[0]
+      });
     }
 
+    // 2. Check if the provider has an overlapping booking
+    const [providerConflicts] = await connection.query(
+      `SELECT booking_id, booking_date, user_id 
+       FROM bookings b
+       JOIN services s ON b.service_id = s.service_id
+       WHERE b.provider_id = ? 
+       AND b.status IN ('pending', 'confirmed', 'in_progress')
+       AND (
+         (b.booking_date <= ? AND DATE_ADD(b.booking_date, INTERVAL COALESCE(s.duration_minutes, 60) MINUTE) > ?) OR
+         (b.booking_date < ? AND b.booking_date >= ?)
+       )`,
+      [providerId, bookingDateTime, bookingDateTime, serviceEndTime, bookingDateTime]
+    );
+
+    if (providerConflicts.length > 0) {
+      await connection.rollback();
+      return res.status(409).json({
+        message: 'This provider is not available during the selected time slot',
+        conflictType: 'provider_conflict',
+        suggestedMessage: 'Please choose a different time or try another provider'
+      });
+    }
+
+    // 3. Optional: Check if the same service is already booked by this user on the same day
+    // This prevents duplicate bookings of the same service on the same day
+    const sameDayStart = new Date(bookingDateTime);
+    sameDayStart.setHours(0, 0, 0, 0);
+    const sameDayEnd = new Date(bookingDateTime);
+    sameDayEnd.setHours(23, 59, 59, 999);
+
+    const [sameDayBookings] = await connection.query(
+      `SELECT booking_id 
+       FROM bookings 
+       WHERE user_id = ? 
+       AND service_id = ? 
+       AND booking_date BETWEEN ? AND ?
+       AND status IN ('pending', 'confirmed', 'in_progress', 'completed')`,
+      [req.user.id, serviceId, sameDayStart, sameDayEnd]
+    );
+
+    if (sameDayBookings.length > 0) {
+      await connection.rollback();
+      return res.status(409).json({
+        message: 'You have already booked this service for today',
+        conflictType: 'same_service_conflict'
+      });
+    }
+
+    // 4. Check provider's working hours (if you have a working_hours table)
+    // This is optional but recommended for better user experience
+    const dayOfWeek = bookingDateTime.getDay(); // 0 = Sunday, 1 = Monday, etc.
+    const timeOfDay = bookingDateTime.toTimeString().slice(0, 5); // HH:MM format
+
+    const [workingHours] = await connection.query(
+      `SELECT * FROM provider_working_hours 
+       WHERE provider_id = ? 
+       AND day_of_week = ? 
+       AND is_available = 1 
+       AND start_time <= ? 
+       AND end_time >= ?`,
+      [providerId, dayOfWeek, timeOfDay, timeOfDay]
+    );
+
+    // Only check working hours if the table exists and has data
+    if (workingHours.length === 0) {
+      // You can either skip this check or implement a default working hours logic
+      console.log('No working hours found for provider, proceeding with booking...');
+    }
+
+    // Create the booking
+    const [bookingResult] = await connection.execute(
+      `INSERT INTO bookings 
+       (user_id, service_id, provider_id, booking_date, special_requests, address, total_amount, status, payment_status)
+       VALUES (?, ?, ?, ?, ?, ?, ?, 'pending', 'pending')`,
+      [
+        req.user.id,
+        serviceId,
+        providerId,
+        bookingDateTime,
+        specialRequests || null,
+        address,
+        parseFloat(totalAmount)
+      ]
+    );
+
+    // Get the generated booking ID
+    const bookingId = bookingResult.insertId || bookingResult.lastInsertId;
+
+    // Optional: Send notification to provider about new booking
+    // You can implement this later with a notification system
+
+    // Commit the transaction if everything is successful
     await connection.commit();
 
+    // Send success response
     res.status(201).json({
-      serviceId,
-      title,
-      description,
-      category,
-      basePrice: numericPrice,
-      durationMinutes: durationMinutes || null,
-      location: location.trim(),
-      message: 'Service created successfully'
+      success: true,
+      bookingId: bookingId,
+      status: 'pending',
+      paymentStatus: 'pending',
+      message: 'Booking created successfully',
+      bookingDetails: {
+        bookingDate: bookingDateTime,
+        serviceEndTime: serviceEndTime,
+        estimatedDuration: serviceDuration
+      }
     });
 
   } catch (err) {
+    // Rollback transaction on error
     await connection.rollback();
-    console.error('Error creating service:', err);
-    res.status(500).json({ message: 'Error creating service' });
+    console.error('Error creating booking:', err);
+    
+    // Send appropriate error response
+    if (err.code === 'ER_NO_REFERENCED_ROW') {
+      return res.status(400).json({ message: 'Invalid service, provider, or user ID' });
+    }
+    
+    if (err.code === 'ER_DUP_ENTRY') {
+      return res.status(409).json({ message: 'Duplicate booking detected' });
+    }
+    
+    res.status(500).json({ message: 'Server error while creating booking' });
   } finally {
+    // Always release the connection
     connection.release();
   }
 });
 
+// Helper endpoint to check availability before booking
+app.get('/api/bookings/check-availability', authenticate, async (req, res) => {
+  const { providerId, serviceId, bookingDate } = req.query;
+  
+  if (!providerId || !serviceId || !bookingDate) {
+    return res.status(400).json({ message: 'Missing required parameters' });
+  }
+
+  try {
+    const connection = await pool.getConnection();
+    
+    // Get service duration
+    const [services] = await connection.query(
+      'SELECT duration_minutes FROM services WHERE service_id = ?',
+      [serviceId]
+    );
+    
+    if (services.length === 0) {
+      return res.status(404).json({ message: 'Service not found' });
+    }
+    
+    const serviceDuration = services[0].duration_minutes || 60;
+    const bookingDateTime = new Date(bookingDate);
+    const serviceEndTime = new Date(bookingDateTime.getTime() + serviceDuration * 60000);
+    
+    // Check for conflicts
+    const [conflicts] = await connection.query(
+      `SELECT booking_id, booking_date 
+       FROM bookings b
+       JOIN services s ON b.service_id = s.service_id
+       WHERE b.provider_id = ? 
+       AND b.status IN ('pending', 'confirmed', 'in_progress')
+       AND (
+         (b.booking_date <= ? AND DATE_ADD(b.booking_date, INTERVAL COALESCE(s.duration_minutes, 60) MINUTE) > ?) OR
+         (b.booking_date < ? AND b.booking_date >= ?)
+       )`,
+      [providerId, bookingDateTime, bookingDateTime, serviceEndTime, bookingDateTime]
+    );
+    
+    connection.release();
+    
+    res.json({
+      available: conflicts.length === 0,
+      conflicts: conflicts.length,
+      suggestedSlots: conflicts.length > 0 ? [] : null // You can implement slot suggestions here
+    });
+    
+  } catch (err) {
+    console.error('Error checking availability:', err);
+    res.status(500).json({ message: 'Server error while checking availability' });
+  }
+});
 app.post('/api/bookings', authenticate, authorize(['user']), async (req, res) => {
   const connection = await pool.getConnection();
   
