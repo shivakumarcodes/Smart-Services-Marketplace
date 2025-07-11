@@ -42,6 +42,18 @@ const ClickGame = ({ onClose }) => {
           ref={gameAreaRef}
           className="game-area" 
           onClick={handleClick}
+          style={{
+            width: '100%',
+            height: '60vh',
+            backgroundColor: '#f8f9fa',
+            border: '2px dashed #dee2e6',
+            borderRadius: '8px',
+            position: 'relative',
+            cursor: 'pointer',
+            overflow: 'hidden',
+            userSelect: 'none',
+            caretColor: 'transparent'
+          }}
         >
           {circles.map((circle) => (
             <div 
