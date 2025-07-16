@@ -49,6 +49,24 @@ A full-stack web application that connects service seekers with skilled professi
 ### Other
 - **Cloudinary** for image uploads
 - **CORS**, **Helmet** for security
-- **Vite** (Optional - if used for fast builds)
+- **Vite**
 
 ---
+
+## 📦 Installation & Running Locally
+
+### 📁 Clone the Repository
+
+```bash
+git clone https://github.com/shivakumarcodes/Smart-Services-Marketplace.git
+cd smart-services-marketplace
+
+🔧 Backend Setup (/server)
+cd server
+npm install
+node index.js
+
+💻 Frontend Setup (/client)
+cd ../client
+npm install
+npm run dev
