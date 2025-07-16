@@ -42,17 +42,32 @@ const upload = multer({ storage });
 
 // Database connection
 let pool;
+// (async () => {
+//   pool = await mysql.createPool({
+//     host: process.env.DB_HOST || 'smart-services-database.ct066qgye9u8.eu-north-1.rds.amazonaws.com',
+//     user: process.env.DB_USER || 'admin',
+//     password: process.env.DB_PASSWORD || '#Shiva123',
+//     database: process.env.DB_NAME || 'smart-services-database',
+//     waitForConnections: true,
+//     connectionLimit: 10,
+//     queueLimit: 0
+//   });
+//   console.log('Connected to MySQL database');
+// })();
+
 (async () => {
   pool = await mysql.createPool({
-    host: process.env.DB_HOST || 'smart-services-database.ct066qgye9u8.eu-north-1.rds.amazonaws.com',
-    user: process.env.DB_USER || 'admin',
-    password: process.env.DB_PASSWORD || '#Shiva123',
-    database: process.env.DB_NAME || 'smart-services-database',
+    host: process.env.DB_HOST1 || 'shinkansen.proxy.rlwy.net',
+    user: process.env.DB_USER1 || 'root',
+    password: process.env.DB_PASSWORD1 || 'cPbwdmmhEHDlvcSmyZFlpukuSEKInOGU',
+    database: process.env.DB_NAME1 || 'smart-services-database',
+    port: process.env.DB_PORT1 || 41187,
     waitForConnections: true,
     connectionLimit: 10,
     queueLimit: 0
   });
-  console.log('Connected to MySQL database');
+
+  console.log('✅ Connected to MySQL database');
 })();
 
 // Middleware to verify JWT
